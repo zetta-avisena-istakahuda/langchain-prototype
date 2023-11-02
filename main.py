@@ -18,7 +18,7 @@ def insert_or_fetch_embeddings(index_name):
   from langchain.vectorstores import Pinecone
   from langchain.embeddings.openai import OpenAIEmbeddings
 
-  embeddings = OpenAIEmbeddings(openai_api_key='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')
+  embeddings = OpenAIEmbeddings(openai_api_key='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')
   pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
 
   if index_name in pinecone.list_indexes():
