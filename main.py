@@ -32,7 +32,7 @@ def ask_and_get_answer(vector_store, query):
   from langchain.chains import RetrievalQA
   from langchain.chat_models import ChatOpenAI
 
-  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=1, openai_api_key='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')
+  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=1, openai_api_key='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')
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
   chain=RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
 
