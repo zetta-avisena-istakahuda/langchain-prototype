@@ -18,6 +18,9 @@ def insert_or_fetch_embeddings(index_name):
   from langchain.vectorstores import Pinecone
   from langchain.embeddings.openai import OpenAIEmbeddings
 
+  api_config = st.secrets["api"]
+  openai_api_key = api_config["openai_api_key"]
+
   embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
   pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
 
@@ -31,6 +34,9 @@ def insert_or_fetch_embeddings(index_name):
 def ask_and_get_answer(vector_store, query):
   from langchain.chains import RetrievalQA
   from langchain.chat_models import ChatOpenAI
+
+  api_config = st.secrets["api"]
+  openai_api_key = api_config["openai_api_key"]
 
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.5, openai_api_key=openai_api_key)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
