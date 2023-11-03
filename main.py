@@ -43,8 +43,17 @@ def ask_and_get_answer(vector_store, query):
 # Streamlit app
 def main():
     from dotenv import load_dotenv
+    import tomli
+    from os.path import join, dirname
+
+    # Load the TOML configuration file
+    config_file = join(dirname(__file__), "config.toml")
+    with open(config_file, "rb") as f:
+    config = tomli.load(f)
+
+    # Retrieve the API key
+    openai_api_key = config["api"]["openai_api_key"]
     load_dotenv()
-    openai_api_key = os.getenv("OPENAI_API_KEY")
     index_name = 'demo-langchain'
     vector_store = insert_or_fetch_embeddings(index_name)
 
