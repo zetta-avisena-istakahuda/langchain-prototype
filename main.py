@@ -18,7 +18,7 @@ def insert_or_fetch_embeddings(index_name):
   from langchain.vectorstores import Pinecone
   from langchain.embeddings.openai import OpenAIEmbeddings
 
-  embeddings = OpenAIEmbeddings()
+  embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
   pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
 
   if index_name in pinecone.list_indexes():
@@ -32,7 +32,7 @@ def ask_and_get_answer(vector_store, query):
   from langchain.chains import RetrievalQA
   from langchain.chat_models import ChatOpenAI
 
-  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.5)
+  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.5, openai_api_key=openai_api_key)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
   chain=RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
 
@@ -58,7 +58,6 @@ def main():
     # Input field for the question
     with right_column:
         st.title("CPEB 2024 - Posez-nous vos questions...")
-        st.write(openai_api_key)
         question = st.text_input("Ask a question:")
         if st.button("Get Answer"):
             # Check if a question is provided
