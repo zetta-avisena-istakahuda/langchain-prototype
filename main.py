@@ -18,7 +18,7 @@ def insert_or_fetch_embeddings(index_name):
   from langchain.vectorstores import Pinecone
   from langchain.embeddings.openai import OpenAIEmbeddings
 
-  embeddings = OpenAIEmbeddings(openai_api_key='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')
+  embeddings = OpenAIEmbeddings()
   pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
 
   if index_name in pinecone.list_indexes():
@@ -32,7 +32,7 @@ def ask_and_get_answer(vector_store, query):
   from langchain.chains import RetrievalQA
   from langchain.chat_models import ChatOpenAI
 
-  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.5, openai_api_key='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')
+  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.5)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
   chain=RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
 
@@ -42,7 +42,9 @@ def ask_and_get_answer(vector_store, query):
 
 # Streamlit app
 def main():
-
+    from dotenv import load_dotenv
+    load_dotenv()
+    openai_api_key = os.getenv("OPENAI_API_KEY")
     index_name = 'demo-langchain'
     vector_store = insert_or_fetch_embeddings(index_name)
 
