@@ -58,6 +58,7 @@ def main():
     # Input field for the question
     with right_column:
         st.title("CPEB 2024 - Posez-nous vos questions...")
+        st.write(openai_api_key)
         question = st.text_input("Ask a question:")
         if st.button("Get Answer"):
             # Check if a question is provided
