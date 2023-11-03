@@ -43,7 +43,7 @@ def ask_and_get_answer(vector_store, query):
 # Streamlit app
 def main():
     from dotenv import load_dotenv
-    openai_api_key = st.secrets["api"]["openai_api_key"]
+    openai_api_key = st.secrets.api.openai_api_key
     load_dotenv()
     index_name = 'demo-langchain'
     vector_store = insert_or_fetch_embeddings(index_name)
