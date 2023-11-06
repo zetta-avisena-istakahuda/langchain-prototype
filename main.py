@@ -45,10 +45,23 @@ def ask_and_get_answer(vector_store, query):
   answer = chain.run(query)
   return(answer)
 
+def ask_with_memory(vector_store, question, chat_history=[]):
+  from langchain.chains import ConversationalRetrievalChain
+  from langchain.chat_models import ChatOpenAI
+
+  llm = ChatOpenAI(temperature=1)
+  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
+
+  crc = ConversationalRetrievalChain.from_llm(llm, retriever)
+  result = crc({'question': question, 'chat_history': chat_history})
+  chat_history.append((question, result['answer']))
+
+  return result, chat_history
 
 # Streamlit app
 def main():
     from dotenv import load_dotenv
+    chat_history = []
     api_config = st.secrets["api"]
     openai_api_key = api_config["openai_api_key"]
     load_dotenv()
@@ -71,7 +84,7 @@ def main():
                 st.warning("Please enter a question.")
             else:
                 # Generate and display the answer
-                answer = ask_and_get_answer(vector_store, question)
+                answer = ask_with_memory(vector_store, question, chat_history)
                 st.write(f"**Question:** {question}")
                 st.write(f"**Answer:** {answer}")
 
