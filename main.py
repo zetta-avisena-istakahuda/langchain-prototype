@@ -86,7 +86,7 @@ def main():
                 # Generate and display the answer
                 answer = ask_with_memory(vector_store, question, chat_history)
                 st.write(f"**Question:** {question}")
-                st.write(f"**Answer:** {answer}")
+                st.write(f"**Answer:** {result['answer']}")
 
 
 
