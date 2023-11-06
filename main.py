@@ -64,6 +64,7 @@ def ask_with_memory(vector_store, question, chat_history=[]):
 # Streamlit app
 def main():
     from dotenv import load_dotenv
+    global chat_history
     api_config = st.secrets["api"]
     openai_api_key = api_config["openai_api_key"]
     load_dotenv()
