@@ -40,7 +40,7 @@ def ask_and_get_answer(vector_store, query):
 
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.5, openai_api_key=openai_api_key)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
-  chain=RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
+  chain=RetrievalQA.from_chain_type(llm=llm, chain_type="refine", retriever=retriever)
 
   answer = chain.run(query)
   return(answer)
