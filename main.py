@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 
-
+chat_history = []
 # Function to generate answers based on questions
 def generate_answer(question):
     # Replace this with your logic to generate answers
@@ -64,7 +64,6 @@ def ask_with_memory(vector_store, question, chat_history=[]):
 # Streamlit app
 def main():
     from dotenv import load_dotenv
-    chat_history = []
     api_config = st.secrets["api"]
     openai_api_key = api_config["openai_api_key"]
     load_dotenv()
