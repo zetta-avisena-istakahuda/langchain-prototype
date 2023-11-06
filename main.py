@@ -87,9 +87,9 @@ def main():
                 st.warning("Please enter a question.")
             else:
                 # Generate and display the answer
-                result, chat_history = ask_with_memory(vector_store, question, chat_history)
+                result = ask_and_get_answer(vector_store, question)
                 st.write(f"**Question:** {question}")
-                st.write(f"**Answer:** {chat_history}")
+                st.write(f"**Answer:** {result}")
 
 
 
