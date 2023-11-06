@@ -89,7 +89,7 @@ def main():
                 # Generate and display the answer
                 result, chat_history = ask_with_memory(vector_store, question, chat_history)
                 st.write(f"**Question:** {question}")
-                st.write(f"**Answer:** {result['answer']}")
+                st.write(f"**Answer:** {chat_history}")
 
 
 
