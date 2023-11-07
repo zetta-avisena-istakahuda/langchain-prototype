@@ -24,10 +24,10 @@ def insert_or_fetch_embeddings(index_name):
   openai_api_key = api_config["openai_api_key"]
     
 try:
-    pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
-    print("Pinecone initialized successfully!")
+  pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
+  print("Pinecone initialized successfully!")
 except pinecone.exceptions.PineconeException as e:
-    print(f"Error initializing Pinecone: {str(e)}")
+  print(f"Error initializing Pinecone: {str(e)}")
     
   embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
 
