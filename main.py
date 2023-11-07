@@ -2,6 +2,7 @@ import streamlit as st
 import os
 
 chat_history = []
+isVectorStore = false
 # Function to generate answers based on questions
 def generate_answer(question):
     # Replace this with your logic to generate answers
@@ -28,6 +29,7 @@ def insert_or_fetch_embeddings(index_name):
    print(f'Index {index_name} already exists. Loading embeddings ... ', end='')
    vector_store = Pinecone.from_existing_index(index_name, embeddings)
    print('OK')
+   isVectorStore = true
   return vector_store
 
 
@@ -65,11 +67,13 @@ def ask_with_memory(vector_store, question, chat_history=[]):
 def main():
     from dotenv import load_dotenv
     global chat_history
+    global isVectorStore
     api_config = st.secrets["api"]
     openai_api_key = api_config["openai_api_key"]
     load_dotenv()
     index_name = 'demo-langchain'
-    vector_store = insert_or_fetch_embeddings(index_name)
+    if isVectorStore:
+      vector_store = insert_or_fetch_embeddings(index_name)
 
     # Create a layout with two columns
     left_column, right_column = st.columns([1, 3])
