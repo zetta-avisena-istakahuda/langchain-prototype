@@ -22,16 +22,15 @@ def insert_or_fetch_embeddings(index_name):
 
   api_config = st.secrets["api"]
   openai_api_key = api_config["openai_api_key"]
-    
-  try:
-    pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
-    print("Pinecone initialized successfully!")
-  except pinecone.exceptions.PineconeException as e:
-    print(f"Error initializing Pinecone: {str(e)}")
+  pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
     
   embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
 
   if index_name in pinecone.list_indexes():
+    try:
+      pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
+    except pinecone.exceptions.PineconeException as e:
+      print(f"Error initializing Pinecone: {str(e)}")
    print(f'Index {index_name} already exists. Loading embeddings ... ', end='')
    vector_store = Pinecone.from_existing_index(index_name, embeddings)
    print('OK')
