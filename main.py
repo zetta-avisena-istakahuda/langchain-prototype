@@ -98,9 +98,9 @@ def main():
                 st.warning("Please enter a question.")
             else:
                 # Generate and display the answer
-                result = ask_and_get_answer(vector_store, question)
+                result = ask_and_get_answer(vector_store, question + " make the answer to be point per point")
                 if '403' in str(result).lower():
-                 result = ask_and_get_answer(vector_store, question)
+                 result = ask_and_get_answer(vector_store, question + " make the answer to be point per point")
                 st.write(f"**Question:** {question}")
                 st.write(f"**Answer:** {result}")
 
