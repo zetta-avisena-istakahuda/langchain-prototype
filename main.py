@@ -99,7 +99,7 @@ def main():
             else:
                 # Generate and display the answer
                 result = ask_and_get_answer(vector_store, question)
-                if 'subdomain' in str(e).lower():
+                if 'subdomain' in str(result).lower():
                  ask_and_get_answer(vector_store, query)
                 else:
                  st.write(f"**Question:** {question}")
