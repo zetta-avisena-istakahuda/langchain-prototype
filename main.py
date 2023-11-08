@@ -29,7 +29,7 @@ def insert_or_fetch_embeddings(index_name):
 
   if index_name in pinecone.list_indexes():
    print(f'Index {index_name} already exists. Loading embeddings ... ', end='')
-   if !isVector:
+   if not isVector:
     pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
     vector_store = Pinecone.from_existing_index(index_name, embeddings)
     isVector = True
