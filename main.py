@@ -90,7 +90,10 @@ def main():
                 st.warning("Please enter a question.")
             else:
                 # Generate and display the answer
-                result = ask_and_get_answer(vector_store, question)
+                try:
+                 result = ask_and_get_answer(vector_store, question)
+                except Exception as e:
+                 print(f"An error occurred: {str(e)}")
                 st.write(f"**Question:** {question}")
                 st.write(f"**Answer:** {result}")
 
