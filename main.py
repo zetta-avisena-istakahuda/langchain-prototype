@@ -51,7 +51,7 @@ def ask_and_get_answer(vector_store, query):
    answer = chain.run(query)
   except Exception as e:
    answer = e
-   ask_and_get_answer(vector_store, question)
+   ask_and_get_answer(vector_store, query)
    return (answer)
   return(answer)
 
