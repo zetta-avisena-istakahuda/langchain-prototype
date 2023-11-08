@@ -2,7 +2,7 @@ import streamlit as st
 import pinecone
 import os
 
-
+pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
 chat_history = []
 # Function to generate answers based on questions
 def generate_answer(question):
@@ -97,5 +97,4 @@ def main():
 
 
 if __name__ == "__main__":
-  pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
 main()
