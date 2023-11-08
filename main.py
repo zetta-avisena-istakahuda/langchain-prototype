@@ -26,7 +26,7 @@ def insert_or_fetch_embeddings(index_name):
 
   api_config = st.secrets["api"]
   openai_api_key = api_config["openai_api_key"]    
-  embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key, model="text-search-curie-doc-001")
+  embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
 
   if index_name in pinecone.list_indexes():
    print(f'Index {index_name} already exists. Loading embeddings ... ', end='')
