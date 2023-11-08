@@ -47,10 +47,7 @@ def ask_and_get_answer(vector_store, query):
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.3, openai_api_key=openai_api_key)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
   chain=RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
-  try:
-   answer = chain.run(query)
-  except Exception as e:
-   ask_and_get_answer(vector_store, query)
+  answer = chain.run(query)
   return(answer)
 
 def ask_with_memory(vector_store, question, chat_history=[]):
