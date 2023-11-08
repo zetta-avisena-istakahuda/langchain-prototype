@@ -93,7 +93,7 @@ def main():
                 try:
                  result = ask_and_get_answer(vector_store, question)
                 except Exception as e:
-                 print(f"An error occurred: {str(e)}")
+                 result = ask_and_get_answer(vector_store, question)
                 st.write(f"**Question:** {question}")
                 st.write(f"**Answer:** {result}")
 
