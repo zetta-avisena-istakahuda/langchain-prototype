@@ -104,8 +104,8 @@ def main():
                  st.write(f"**Question:** {question}")
                  st.write(f"**Answer:** {result}")
                 else:
-                st.write(f"**Question:** {question}")
-                st.write(f"**Answer:** {result}")
+                 st.write(f"**Question:** {question}")
+                 st.write(f"**Answer:** {result}")
 
 
 
