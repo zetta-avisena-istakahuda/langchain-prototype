@@ -78,7 +78,7 @@ def main():
     index_name = 'demo-langchain'
 
     if vector_store is None:
-     vector_store = insert_or_fetch_embeddings(index_name)
+     #vector_store = insert_or_fetch_embeddings(index_name)
     # Create a layout with two columns
     left_column, right_column = st.columns([1, 3])
 
