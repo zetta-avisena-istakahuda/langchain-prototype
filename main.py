@@ -18,6 +18,7 @@ def generate_answer(question):
         return "I don't have an answer to that question."
 
 def insert_or_fetch_embeddings(index_name):
+  global isVector
   import pinecone
   from langchain.vectorstores import Pinecone
   from langchain.embeddings.openai import OpenAIEmbeddings
