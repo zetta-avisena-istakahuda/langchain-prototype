@@ -50,8 +50,8 @@ def ask_and_get_answer(vector_store, query):
   try:
    answer = chain.run(query)
   except Exception as e:
-   if 'rate limit' in str(e).lower():
-    answer = "Rate limit exceeded. Please try again later."
+   if 'pinecone' in str(e).lower():
+    ask_and_get_answer(vector_store, query)
    else:
     answer = str(e)
   return(answer)
