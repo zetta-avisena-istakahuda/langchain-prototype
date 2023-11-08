@@ -26,10 +26,7 @@ def insert_or_fetch_embeddings(index_name):
 
   if index_name in pinecone.list_indexes():
    print(f'Index {index_name} already exists. Loading embeddings ... ', end='')
-   try:
-    vector_store = Pinecone.from_existing_index(index_name, embeddings)
-   except Exception as e:
-    print(f"Error initializing Pinecone: {str(e)}")
+
    print('OK')
   return vector_store
 
@@ -101,4 +98,5 @@ def main():
 
 if __name__ == "__main__":
   pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
+  vector_store = Pinecone.from_existing_index(index_name, embeddings)
   main()
