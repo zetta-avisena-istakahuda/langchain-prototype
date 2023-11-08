@@ -5,6 +5,7 @@ import os
 
 chat_history = []
 isVector = False
+vector_store = None
 
 # Function to generate answers based on questions
 def generate_answer(question):
@@ -69,14 +70,14 @@ def ask_with_memory(vector_store, question, chat_history=[]):
 # Streamlit app
 def main():
     from dotenv import load_dotenv
-    global isVector
+    global vector_store
     global chat_history
     api_config = st.secrets["api"]
     openai_api_key = api_config["openai_api_key"]
     load_dotenv()
     index_name = 'demo-langchain'
 
-    if not isVector:
+    if vector_store is None:
      vector_store = insert_or_fetch_embeddings(index_name)
     # Create a layout with two columns
     left_column, right_column = st.columns([1, 3])
