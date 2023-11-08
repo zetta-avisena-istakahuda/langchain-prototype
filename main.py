@@ -26,7 +26,7 @@ def insert_or_fetch_embeddings(index_name):
 
   api_config = st.secrets["api"]
   openai_api_key = api_config["openai_api_key"]    
-  embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+  embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key, model="text-search-curie-doc-001")
 
   if index_name in pinecone.list_indexes():
    print(f'Index {index_name} already exists. Loading embeddings ... ', end='')
@@ -47,7 +47,11 @@ def ask_and_get_answer(vector_store, query):
   llm = ChatOpenAI(model='gpt-3.5-turbo-0301', temperature=0.3, openai_api_key=openai_api_key)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
   chain=RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
-  answer = chain.run(query)
+  try:
+   answer = chain.run(query)
+  except Exception as e:
+   answer = None
+   ask_and_get_answer(vector_store, query)
   return(answer)
 
 def ask_with_memory(vector_store, question, chat_history=[]):
