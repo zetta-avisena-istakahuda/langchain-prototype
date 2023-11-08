@@ -1,6 +1,7 @@
 import streamlit as st
 import pinecone
 import os
+import time
 
 pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
 chat_history = []
@@ -55,6 +56,7 @@ def ask_and_get_answer(vector_store, query):
    except Exception as e:
     print(f"An error occurred: {str(e)}")
     print("Retrying...")
+    time.sleep(0.5)
     # Optionally, you can add a delay here using time.sleep() to avoid excessive retries
   return(answer)
 
