@@ -2,7 +2,7 @@ import streamlit as st
 import pinecone
 import os
 
-
+pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
 chat_history = []
 isVector = False
 vector_store = None
