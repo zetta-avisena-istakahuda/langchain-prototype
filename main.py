@@ -50,10 +50,7 @@ def ask_and_get_answer(vector_store, query):
   try:
    answer = chain.run(query)
   except Exception as e:
-   if 'subdomain' in str(e).lower():
-    ask_and_get_answer(vector_store, query)
-   else:
-    answer = str(e)
+   answer = str(e)
   return(answer)
 
 def ask_with_memory(vector_store, question, chat_history=[]):
@@ -102,8 +99,11 @@ def main():
             else:
                 # Generate and display the answer
                 result = ask_and_get_answer(vector_store, question)
-                st.write(f"**Question:** {question}")
-                st.write(f"**Answer:** {result}")
+                if 'subdomain' in str(e).lower():
+                 ask_and_get_answer(vector_store, query)
+                else:
+                 st.write(f"**Question:** {question}")
+                 st.write(f"**Answer:** {result}")
 
 
 
