@@ -47,10 +47,17 @@ def ask_and_get_answer(vector_store, query):
   llm = ChatOpenAI(model='gpt-3.5-turbo-0301', temperature=0, openai_api_key=openai_api_key)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
   chain=RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
-  try:
-   answer = chain.run(query)
-  except Exception as e:
-   answer = str(e)
+
+  for _ in range(3):
+   try:
+    answer = chain.run(query)
+    break  # If the operation succeeds, exit the loop
+   except Exception as e:
+    print(f"An error occurred: {str(e)}")
+    print("Retrying...")
+    # Optionally, you can add a delay here using time.sleep() to avoid excessive retries
+   else:
+    break  # If there was no exception, exit the loop
   return(answer)
 
 def ask_with_memory(vector_store, question, chat_history=[]):
