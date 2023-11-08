@@ -50,7 +50,7 @@ def ask_and_get_answer(vector_store, query):
   try:
    answer = chain.run(query)
   except Exception as e:
-   answer = "error"
+   answer = e
   return(answer)
 
 def ask_with_memory(vector_store, question, chat_history=[]):
