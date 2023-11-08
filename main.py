@@ -100,10 +100,9 @@ def main():
                 # Generate and display the answer
                 result = ask_and_get_answer(vector_store, question + " au format puces")
                 if '403' in result:
-                 result = ask_and_get_answer(vector_store, question + " au format puces")
+                 result = "here here"
                 st.write(f"**Question:** {question}")
                 st.write(f"**Answer:** {result}")
-                st.write(f"**typeof:** {type(result)}")
 
 
 
