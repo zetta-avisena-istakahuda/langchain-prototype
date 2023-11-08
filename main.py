@@ -28,7 +28,7 @@ def insert_or_fetch_embeddings(index_name):
    print(f'Index {index_name} already exists. Loading embeddings ... ', end='')
    try:
     vector_store = Pinecone.from_existing_index(index_name, embeddings)
-   except pinecone.exceptions.PineconeException as e:
+   except Exception as e:
     print(f"Error initializing Pinecone: {str(e)}")
    print('OK')
   return vector_store
