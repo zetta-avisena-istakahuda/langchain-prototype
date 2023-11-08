@@ -50,7 +50,7 @@ def ask_and_get_answer(vector_store, query):
   try:
    answer = chain.run(query)
   except Exception as e:
-   if 'pinecone' in str(e).lower():
+   if 'subdomain' in str(e).lower():
     ask_and_get_answer(vector_store, query)
    else:
     answer = str(e)
