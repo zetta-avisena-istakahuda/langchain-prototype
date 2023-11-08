@@ -87,7 +87,7 @@ def main():
     # Input field for the question
     with right_column:
         st.title("CPEB 2024 - Posez-nous vos questions...")
-        question = st.text_input("Ask a question:")
+        question = st.text_input("Ask a question: {isVector}")
         if st.button("Get Answer"):
             # Check if a question is provided
             if not question:
