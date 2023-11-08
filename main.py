@@ -4,6 +4,8 @@ import os
 
 pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
 chat_history = []
+isVector = false
+
 # Function to generate answers based on questions
 def generate_answer(question):
     # Replace this with your logic to generate answers
@@ -16,6 +18,7 @@ def generate_answer(question):
         return "I don't have an answer to that question."
 
 def insert_or_fetch_embeddings(index_name):
+  global isVector
   import pinecone
   from langchain.vectorstores import Pinecone
   from langchain.embeddings.openai import OpenAIEmbeddings
@@ -26,7 +29,9 @@ def insert_or_fetch_embeddings(index_name):
 
   if index_name in pinecone.list_indexes():
    print(f'Index {index_name} already exists. Loading embeddings ... ', end='')
-   vector_store = Pinecone.from_existing_index(index_name, embeddings)
+   if !isVector:
+    vector_store = Pinecone.from_existing_index(index_name, embeddings)
+    isVector = true
    print('OK')
   return vector_store
 
