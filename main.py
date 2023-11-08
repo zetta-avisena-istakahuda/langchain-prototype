@@ -103,6 +103,7 @@ def main():
                  result = ask_and_get_answer(vector_store, question + " au format puces")
                 st.write(f"**Question:** {question}")
                 st.write(f"**Answer:** {result}")
+                st.write(f"**typeof:** {typeof(result)}")
 
 
 
