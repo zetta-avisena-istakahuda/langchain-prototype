@@ -99,4 +99,4 @@ def main():
 if __name__ == "__main__":
   pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
   vector_store = Pinecone.from_existing_index(index_name, embeddings)
-  main()
+main()
