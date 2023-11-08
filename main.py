@@ -52,8 +52,8 @@ def ask_and_get_answer(vector_store, query):
   except Exception as e:
    if 'rate limit' in str(e).lower():
     answer = "Rate limit exceeded. Please try again later."
-    else:
-     answer = str(e)
+   else:
+    answer = str(e)
   return(answer)
 
 def ask_with_memory(vector_store, question, chat_history=[]):
