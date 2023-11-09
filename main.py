@@ -79,9 +79,6 @@ def main():
     openai_api_key = api_config["openai_api_key"]
     load_dotenv()
     index_name = 'demo-langchain'
-
-    if vector_store is None:
-     vector_store = insert_or_fetch_embeddings(index_name)
         
     # Create a layout with two columns
     left_column, right_column = st.columns([1, 3])
@@ -100,11 +97,11 @@ def main():
             else:
              while True:
               try:
+               vector_store = insert_or_fetch_embeddings(index_name)
                result = ask_and_get_answer(vector_store, question + " au format puces")
                break  
               except Exception as e:
                print(f"An error occurred: {str(e)}")
-               vector_store = insert_or_fetch_embeddings(index_name)
                st.write(f"**catch error here:** {str(e)}")
                time.sleep(3)
              st.write(f"**Answer:** {result}")
