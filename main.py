@@ -103,7 +103,8 @@ def main():
                  result2 = e
                  st.write(f"**Question:** {question}")
                  st.write(f"**Answer:** {result2}")
-                st.write(f"**Answer:** {result}")
+                else:
+                 st.write(f"**Answer:** {result}")
                
 if __name__ == "__main__":
  main()
