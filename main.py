@@ -98,7 +98,7 @@ def main():
              while True:
               try:
                vector_store = insert_or_fetch_embeddings(index_name)
-               result = ask_and_get_answer(vector_store, question + " sous forme de puces uniquement lorsqu'il y a des explications séparables")
+               result = ask_and_get_answer(vector_store, question)
                break  
               except Exception as e:
                print(f"An error occurred: {str(e)}")
