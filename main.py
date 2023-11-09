@@ -97,7 +97,10 @@ def main():
                 st.warning("Please enter a question.")
             else:
                 # Generate and display the answer
-                result = ask_and_get_answer(vector_store, question + " au format puces")
+                try:
+                 result = ask_and_get_answer(vector_store, question + " au format puces")
+                except Exception as e:
+                 result = e
                 st.write(f"**Answer:** {result}")
                 if 'pinecone' in result:
                  time.sleep(3)
