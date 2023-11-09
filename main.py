@@ -7,6 +7,7 @@ pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-s
 chat_history = []
 isVector = False
 vector_store = None
+question = None
 
 # Function to generate answers based on questions
 def generate_answer(question):
@@ -73,6 +74,7 @@ def main():
     from dotenv import load_dotenv
     global vector_store
     global chat_history
+    global question
     api_config = st.secrets["api"]
     openai_api_key = api_config["openai_api_key"]
     load_dotenv()
