@@ -98,16 +98,14 @@ def main():
             if not question:
                 st.warning("Please enter a question.")
             else:
-                try:
-                 result = ask_and_get_answer(vector_store, question + " au format puces")
-                except Exception as e:
-                 st.write("ERROR HERE")
-                 time.sleep(3)
-                 result2 = ask_and_get_answer(vector_store, question + " au format puces")
-                 st.write(f"**Question:** {question}")
-                 st.write(f"**Answer:** {result2}")
-                else:
-                 st.write(f"**Answer:** {result}")
-               
+             while True:
+              try:
+               result = ask_and_get_answer(vector_store, question + " au format puces")
+               break  
+              except Exception as e:
+               print(f"An error occurred: {str(e)}")
+               print("Retrying...")
+             st.write(f"**Answer:** {result}")
+
 if __name__ == "__main__":
  main()
