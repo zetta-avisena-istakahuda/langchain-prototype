@@ -104,6 +104,7 @@ def main():
                break  
               except Exception as e:
                print(f"An error occurred: {str(e)}")
+               vector_store = insert_or_fetch_embeddings(index_name)
                st.write(f"**catch error here:** {str(e)}")
                time.sleep(3)
              st.write(f"**Answer:** {result}")
