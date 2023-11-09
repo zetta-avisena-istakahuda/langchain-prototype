@@ -49,15 +49,7 @@ def ask_and_get_answer(vector_store, query):
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
   chain=RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
 
-  while True:
-   try:
-    answer = chain.run(query)
-    break  # If the operation succeeds, exit the loop
-   except Exception as e:
-    print(f"An error occurred: {str(e)}")
-    print("Retrying...")
-    time.sleep(0.5)
-    # Optionally, you can add a delay here using time.sleep() to avoid excessive retries
+  answer = chain.run(query)
   return(answer)
 
 def ask_with_memory(vector_store, question, chat_history=[]):
