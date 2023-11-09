@@ -98,7 +98,7 @@ def main():
              while True:
               try:
                vector_store = insert_or_fetch_embeddings(index_name)
-               result = ask_and_get_answer(vector_store, question + " diviser la réponse en points si possible")
+               result = ask_and_get_answer(vector_store, question + " Si la réponse est séparée par des virgules, il faut la présenter sous forme de puces.")
                break  
               except Exception as e:
                print(f"An error occurred: {str(e)}")
