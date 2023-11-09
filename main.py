@@ -89,20 +89,7 @@ def main():
     # Input field for the question
     with right_column:
         st.title("CPEB 2024 - Posez-nous vos questions...")
-        question = st.text_input(f"Entrez votre question: ")
-        st.markdown(
-          """
-         <script>
-           document.querySelector('div[data-baseweb="button"]').style.display = 'none';
-           document.querySelector('input[data-qa="text-input"]').addEventListener('keydown', function (e) {
-           if (e.key === "Enter") {
-            document.querySelector('div[data-baseweb="button"] button').click();
-            }
-        });
-        </script>
-         """,
-        unsafe_allow_html=True,
-        )
+        question = st.text_input(f"Entrez votre question: ", value="")
         if st.button("Obtenir la réponse"):
             # Check if a question is provided
             if not question:
