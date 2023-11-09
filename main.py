@@ -96,11 +96,10 @@ def main():
             if not question:
                 st.warning("Please enter a question.")
             else:
-                # Generate and display the answer
                 try:
                  result = ask_and_get_answer(vector_store, question + " au format puces")
                 except Exception as e:
-                 result2 = e
+                 result2 = ask_and_get_answer(vector_store, question + " au format puces")
                  st.write(f"**Question:** {question}")
                  st.write(f"**Answer:** {result2}")
                 else:
