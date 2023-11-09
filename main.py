@@ -1,4 +1,4 @@
-import streamlit as st
+2import streamlit as st
 import pinecone
 import os
 import time
@@ -98,7 +98,7 @@ def main():
              while True:
               try:
                vector_store = insert_or_fetch_embeddings(index_name)
-               result = ask_and_get_answer(vector_store, question + " Si la réponse est séparée par des virgules, il faut la présenter sous forme de puces.")
+               result = ask_and_get_answer(vector_store, question + " Si la réponse comporte plusieurs points séparés par une virgule, il convient de la présenter sous forme de puces.")
                break  
               except Exception as e:
                print(f"An error occurred: {str(e)}")
