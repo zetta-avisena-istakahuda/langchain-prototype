@@ -104,7 +104,7 @@ def main():
                break  
               except Exception as e:
                print(f"An error occurred: {str(e)}")
-               print("Retrying...")
+               st.write(f"**catch error here:** {str(e)}")
              st.write(f"**Answer:** {result}")
 
 if __name__ == "__main__":
