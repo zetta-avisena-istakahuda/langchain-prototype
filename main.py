@@ -98,6 +98,7 @@ def main():
             else:
                 # Generate and display the answer
                 result = ask_and_get_answer(vector_store, question + " au format puces")
+                st.write(f"**Answer:** {result}")
                 if 'pinecone' in result:
                  time.sleep(3)
                  result2 = ask_and_get_answer(vector_store, question + " au format puces")
