@@ -101,6 +101,7 @@ def main():
                 try:
                  result = ask_and_get_answer(vector_store, question + " au format puces")
                 except Exception as e:
+                 st.write("ERROR HERE")
                  time.sleep(3)
                  result2 = ask_and_get_answer(vector_store, question + " au format puces")
                  st.write(f"**Question:** {question}")
