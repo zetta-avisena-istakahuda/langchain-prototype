@@ -100,18 +100,10 @@ def main():
                 try:
                  result = ask_and_get_answer(vector_store, question + " au format puces")
                 except Exception as e:
-                 result = e
-                st.write(f"**Answer:** {result}")
-                if 'pinecone' in result:
-                 time.sleep(3)
-                 result2 = ask_and_get_answer(vector_store, question + " au format puces")
+                 result2 = e
                  st.write(f"**Question:** {question}")
                  st.write(f"**Answer:** {result2}")
-                else:
-                 st.write(f"**Question:** {question}")
-                 st.write(f"**Answer:** {result}")
-
-
-
+                st.write(f"**Answer:** {result}")
+               
 if __name__ == "__main__":
  main()
