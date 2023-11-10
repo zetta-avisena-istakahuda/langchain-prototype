@@ -9,6 +9,16 @@ isVector = False
 vector_store = None
 question = None
 
+def extractWords(words):
+ import re
+ pattern = re.compile(r'func\s(.*?)\s+is not callable', re.DOTALL)
+ match = pattern.search(str(words))
+ if match:
+  extracted_value = match.group(1).strip()
+  return(extracted_value)
+ else:
+  print("Pattern not found.")
+
 # Function to generate answers based on questions
 def generate_answer(question):
     # Replace this with your logic to generate answers
@@ -38,6 +48,36 @@ def insert_or_fetch_embeddings(index_name):
    print('OK')
   return vector_store
 
+def ask_and_get_answer_v2(vector_store, query):
+  from langchain.chains import RetrievalQA
+  from langchain.chat_models import ChatOpenAI
+  from langchain.agents.types import AgentType
+  from langchain.agents import initialize_agent
+  from langchain.tools import Tool
+
+  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0, max_tokens=512)
+  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
+  chain=RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
+  system_message = """
+        answer in French."
+        "if answer has some points, divide it to be bullet points"
+        """
+  tools = [
+    Tool(
+        name="qa-vet",
+        func=chain.run(query),
+        description="Useful when you need to answer vet questions",
+    )
+  ]
+  executor = initialize_agent(
+    agent = AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
+    tools=tools,
+    llm=llm,
+    agent_kwargs={"system_message": system_message},
+    verbose=False,
+  )
+  result = executor.run({'input': query, 'chat_history': []})
+  return(result) 
 
 def ask_and_get_answer(vector_store, query):
   from langchain.chains import RetrievalQA
@@ -98,10 +138,12 @@ def main():
              while True:
               try:
                vector_store = insert_or_fetch_embeddings(index_name)
-               result = ask_and_get_answer(vector_store, question + " au format puces")
+               result = ask_and_get_answer_v2(vector_store, question)
                break  
               except Exception as e:
-               print(f"An error occurred: {str(e)}")
+               if 'is not callable' in str(e):
+               result = extractWords(e)
+               break
              st.write(f"**Question:** {question}")     
              st.write(f"**Answer:** {result}")
 
