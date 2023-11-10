@@ -141,8 +141,8 @@ def main():
                result = ask_and_get_answer_V2(vector_store, question)
                break  
               except Exception as e:
+               print('THE ERROR: ', e)
                if 'is not callable' in str(e):
-                print('CATCH HERE V2')
                 result = extractWords(e)
                 break
              st.write(f"**Question:** {question}")     
