@@ -137,16 +137,18 @@ def main():
             if not question:
                 st.warning("Please enter a question.")
             else:
-             while True:
-              try:
-               vector_store = insert_or_fetch_embeddings(index_name)
-               result = ask_and_get_answer_V2(vector_store, question)
-               break  
-              except Exception as e:
-               print('THE ERROR: ', e)
-               if 'is not callable' in str(e):
-                result = extractWords(e)
-                break
+             vector_store = insert_or_fetch_embeddings(index_name)
+             result = ask_and_get_answer_V2(vector_store, question)
+             # while True:
+             #  try:
+             #   vector_store = insert_or_fetch_embeddings(index_name)
+             #   result = ask_and_get_answer_V2(vector_store, question)
+             #   break  
+             #  except Exception as e:
+             #   print('THE ERROR: ', e)
+             #   if 'is not callable' in str(e):
+             #    result = extractWords(e)
+             #    break
              st.write(f"**Question:** {question}")     
              st.write(f"**Answer:** {result}")
 
