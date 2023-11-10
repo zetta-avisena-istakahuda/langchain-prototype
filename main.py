@@ -55,6 +55,8 @@ def ask_and_get_answer_v2(vector_store, query):
   from langchain.agents import initialize_agent
   from langchain.tools import Tool
 
+  api_config = st.secrets["api"]
+  openai_api_key = api_config["openai_api_key"]
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0, max_tokens=512, openai_api_key=openai_api_key)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
   chain=RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
