@@ -138,10 +138,11 @@ def main():
              while True:
               try:
                vector_store = insert_or_fetch_embeddings(index_name)
-               result = ask_and_get_answer(vector_store, question)
+               result = ask_and_get_answer_V2(vector_store, question)
                break  
               except Exception as e:
                if 'is not callable' in str(e):
+                print('CATCH HERE V2')
                 result = extractWords(e)
                 break
              st.write(f"**Question:** {question}")     
