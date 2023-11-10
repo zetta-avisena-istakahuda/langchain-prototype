@@ -62,7 +62,7 @@ def ask_and_get_answer_v2(vector_store, query):
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
   chain=RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
   system_message = """
-        answer in French."
+        answer in Indonesian."
         "if answer has some points, divide it to be bullet points"
         """
   tools = [
