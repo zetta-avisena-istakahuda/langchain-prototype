@@ -142,8 +142,8 @@ def main():
                break  
               except Exception as e:
                if 'is not callable' in str(e):
-               result = extractWords(e)
-               break
+                result = extractWords(e)
+                break
              st.write(f"**Question:** {question}")     
              st.write(f"**Answer:** {result}")
 
