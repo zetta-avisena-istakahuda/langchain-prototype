@@ -139,7 +139,7 @@ def main():
                 st.warning("Please enter a question.")
             else:
              vector_store = insert_or_fetch_embeddings(index_name)
-             result = ask_and_get_answer_V2(vector_store, question)
+             result = ask_and_get_answer_v2(vector_store, question)
              # while True:
              #  try:
              #   vector_store = insert_or_fetch_embeddings(index_name)
