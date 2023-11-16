@@ -141,13 +141,10 @@ def main():
              while True:
               try:
                vector_store = insert_or_fetch_embeddings(index_name)
-               result = ask_and_get_answer_v2(vector_store, question)
+               result = ask_and_get_answer(vector_store, question + " au format puces")
                break  
               except Exception as e:
-               print('THE ERROR: ', e)
-               if 'is not callable' in str(e):
-                result = extractWords(e)
-                break
+               print(f"An error occurred: {str(e)}")
              st.write(f"**Question:** {question}")     
              st.write(f"**Answer:** {result}")
 
