@@ -86,7 +86,7 @@ if 'code_executed' not in st.session_state:
     else:
         return input["question"]
 
-  rag_chain = (
+   st.session_state.rag_chain = (
     RunnablePassthrough.assign(context=condense_question | retriever | format_docs)
     | qa_prompt
     | llm
@@ -104,7 +104,7 @@ question = None
 
 def ask_and_get_answer_v3(question, chat_history=[]):
   from langchain.schema.messages import AIMessage, HumanMessage
-  global rag_chain
+  rag_chain = st.session_state.rag_chain
   ai_msg_early = st.session_state.ai_msg_early
   ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
   for chunk in ai_msg:
