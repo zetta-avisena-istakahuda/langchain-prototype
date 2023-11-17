@@ -86,11 +86,13 @@ if 'code_executed' not in st.session_state:
     else:
         return input["question"]
 
-   st.session_state.rag_chain = (
+   rag_chain = (
     RunnablePassthrough.assign(context=condense_question | retriever | format_docs)
     | qa_prompt
     | llm
   )
+
+  st.session_state.rag_chain = rag_chain
   
   st.session_state.ai_msg_early = rag_chain.invoke({"question": 'bonjour', "chat_history": []})
   st.session_state.code_executed = True
