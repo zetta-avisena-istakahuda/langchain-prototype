@@ -115,7 +115,7 @@ def ask_and_get_answer_v3(question, chat_history=[]):
     print(chunk.content, end="", flush=True)
     ai_msg_early.content += chunk.content
     st.write(f"**Answer: **  end="")
-    st.write(f" { ai_msg_early.content}", end="")
+    st.write({ ai_msg_early.content}, end="")
   st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
   return st.session_state.chat_history
 
