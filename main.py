@@ -104,6 +104,7 @@ question = None
 
 def ask_and_get_answer_v3(question, chat_history=[]):
   from langchain.schema.messages import AIMessage, HumanMessage
+  global rag_chain
   ai_msg_early = st.session_state.ai_msg_early
   ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
   for chunk in ai_msg:
