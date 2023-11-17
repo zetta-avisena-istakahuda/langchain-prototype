@@ -5,7 +5,7 @@ import time
 
 
 def initRAG():
-  if 'code_executed' not in st.session_state:
+ if 'code_executed' not in st.session_state:
   from langchain import hub
   from langchain.chains import RetrievalQA, RetrievalQAWithSourcesChain
   from langchain.chat_models import ChatOpenAI
