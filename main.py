@@ -3,11 +3,93 @@ import pinecone
 import os
 import time
 
+if 'code_executed' not in st.session_state:
+  from langchain import hub
+  from langchain.chains import RetrievalQA, RetrievalQAWithSourcesChain
+  from langchain.chat_models import ChatOpenAI
+  from langchain.prompts import PromptTemplate, MessagesPlaceholder
+  from langchain.chains import ConversationalRetrievalChain
+  from langchain.prompts.chat import (
+    ChatPromptTemplate,
+    SystemMessagePromptTemplate,
+    AIMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+    SystemMessage
+   )
+  from langchain.schema.messages import AIMessage, HumanMessage
+  from langchain.memory import ConversationBufferMemory
+  from langchain.agents.types import AgentType
+  from langchain.agents import initialize_agent
+  from langchain.tools import Tool
+  from langchain.agents.agent_toolkits import create_retriever_tool, create_conversational_retrieval_agent
+  from langchain.schema import StrOutputParser
+  from langchain.schema.runnable import RunnablePassthrough
+
+  vector_store = insert_or_fetch_embeddings('demo-langchain')
+  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.3, max_tokens=512)
+  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
+  condense_q_system_prompt = """You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. Always answer in French. If the answer is long, try to make it to be bullet points."""
+  condense_q_prompt = ChatPromptTemplate.from_messages(
+    [
+        ("system", condense_q_system_prompt),
+        MessagesPlaceholder(variable_name="chat_history"),
+        ("human", "{question}"),
+    ]
+  )
+  condense_q_chain = condense_q_prompt | llm | StrOutputParser()
+  condense_q_chain.invoke(
+    {
+        "chat_history": [
+            HumanMessage(content="What does LLM stand for?"),
+            AIMessage(content="Large language model"),
+        ],
+        "question": "How do transformers work",
+    }
+)
+  qa_system_prompt = """
+  You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. Always answer in French. If the answer is long, try to make it to be bullet points.
+  {context}
+  """
+  qa_prompt = ChatPromptTemplate.from_messages(
+    [
+        ("system", qa_system_prompt),
+        MessagesPlaceholder(variable_name="chat_history"),
+        ("human", "{question}"),
+    ]
+)
+  def format_docs(docs):
+    return "\n\n".join(doc.page_content for doc in docs)
+  def condense_question(input: dict):
+    if input.get("chat_history"):
+        return condense_q_chain
+    else:
+        return input["question"]
+
+  rag_chain = (
+    RunnablePassthrough.assign(context=condense_question | retriever | format_docs)
+    | qa_prompt
+    | llm
+  )
+  
+  st.session_state.ai_msg_early = rag_chain.invoke({"question": 'bonjour', "chat_history": []})
+  st.session_state.code_executed = True
+  st.session_state.chat_history = []
+
 pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
 chat_history = []
 isVector = False
 vector_store = None
 question = None
+
+def ask_and_get_answer_v3(question, chat_history=[]):
+  from langchain.schema.messages import AIMessage, HumanMessage
+  ai_msg_early = st.session_state.ai_msg_early
+  ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
+  for chunk in ai_msg:
+    print(chunk.content, end="", flush=True)
+    ai_msg_early.content += chunk.content
+  st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
+  return st.session_state.chat_history
 
 def extractWords(words):
  import re
@@ -140,13 +222,11 @@ def main():
             else:
              while True:
               try:
-               vector_store = insert_or_fetch_embeddings(index_name)
-               result = ask_and_get_answer(vector_store, question + " au format puces")
+               st.write(f"**Question:** {question}")     
+               st.session_state.chat_history = ask_and_get_answer_v3(user_input, st.session_state.chat_history)
                break  
               except Exception as e:
                print(f"An error occurred: {str(e)}")
-             st.write(f"**Question:** {question}")     
-             st.write(f"**Answer:** {result}")
 
 if __name__ == "__main__":
  main()
