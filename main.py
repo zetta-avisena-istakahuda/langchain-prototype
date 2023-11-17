@@ -86,7 +86,7 @@ if 'code_executed' not in st.session_state:
     else:
         return input["question"]
 
-   rag_chain = (
+  rag_chain = (
     RunnablePassthrough.assign(context=condense_question | retriever | format_docs)
     | qa_prompt
     | llm
