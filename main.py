@@ -111,10 +111,11 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   ai_msg_early.content = ''
   ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
   st.write(f"Answer: ",  end="")
+  col1, col2 = st.columns(2)
   for chunk in ai_msg:
     print(chunk.content, end="", flush=True)
     ai_msg_early.content += chunk.content
-    st.text(f"Answer: {ai_msg_early.content}", end="")
+    col1.text(f" {ai_msg_early.content}")
   st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
   return st.session_state.chat_history
 
