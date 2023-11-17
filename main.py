@@ -43,6 +43,9 @@ if 'code_executed' not in st.session_state:
   from langchain.schema import StrOutputParser
   from langchain.schema.runnable import RunnablePassthrough
 
+  api_config = st.secrets["api"]
+  openai_api_key = api_config["openai_api_key"]  
+  
   vector_store = insert_or_fetch_embeddings('demo-langchain')
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.3, max_tokens=512)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
