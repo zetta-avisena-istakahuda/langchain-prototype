@@ -47,7 +47,7 @@ if 'code_executed' not in st.session_state:
   openai_api_key = api_config["openai_api_key"]  
   
   vector_store = insert_or_fetch_embeddings('demo-langchain')
-  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.3, max_tokens=512)
+  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.3, max_tokens=512, openai_api_key=openai_api_key)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
   condense_q_system_prompt = """You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. Always answer in French. If the answer is long, try to make it to be bullet points."""
   condense_q_prompt = ChatPromptTemplate.from_messages(
