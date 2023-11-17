@@ -109,11 +109,13 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   from langchain.schema.messages import AIMessage, HumanMessage
   rag_chain = st.session_state.rag_chain
   ai_msg_early = st.session_state.ai_msg_early
+  ai_msg_early.content = ''
   ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
   for chunk in ai_msg:
     print(chunk.content, end="", flush=True)
     ai_msg_early.content += chunk.content
-    st.write(f"**Answer:** { ai_msg_early.content}") 
+    st.write(f"**Answer: **  end="")
+    st.write(f" { ai_msg_early.content}", end="")
   st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
   return st.session_state.chat_history
 
