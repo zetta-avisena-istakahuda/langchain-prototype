@@ -4,7 +4,7 @@ import os
 import time
 
 
-def initRAG():
+def initRAG(vector_store):
  if 'code_executed' not in st.session_state:
   from langchain import hub
   from langchain.chains import RetrievalQA, RetrievalQAWithSourcesChain
@@ -30,7 +30,6 @@ def initRAG():
   api_config = st.secrets["api"]
   openai_api_key = api_config["openai_api_key"]  
   
-  vector_store = insert_or_fetch_embeddings('demo-langchain')
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.3, max_tokens=512, openai_api_key=openai_api_key)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
   condense_q_system_prompt = """You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. Always answer in French. If the answer is long, try to make it to be bullet points."""
@@ -210,12 +209,12 @@ def main():
     global vector_store
     global chat_history
     global question
-    initRAG()
     api_config = st.secrets["api"]
     openai_api_key = api_config["openai_api_key"]
     load_dotenv()
     index_name = 'demo-langchain'
-        
+    vector_store = insert_or_fetch_embeddings(index_name)
+    initRAG(vector_store)
     # Create a layout with two columns
     left_column, right_column = st.columns([1, 3])
 
