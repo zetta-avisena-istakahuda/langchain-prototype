@@ -3,25 +3,9 @@ import pinecone
 import os
 import time
 
-def insert_or_fetch_embeddings(index_name):
-  global isVector
-  import pinecone
-  from langchain.vectorstores import Pinecone
-  from langchain.embeddings.openai import OpenAIEmbeddings
 
-  api_config = st.secrets["api"]
-  openai_api_key = api_config["openai_api_key"]    
-  embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
-
-  if index_name in pinecone.list_indexes():
-   print(f'Index {index_name} already exists. Loading embeddings ... ', end='')
-   pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
-   vector_store = Pinecone.from_existing_index(index_name, embeddings)
-   isVector = True
-   print('OK')
-  return vector_store
-
-if 'code_executed' not in st.session_state:
+def initRAG():
+  if 'code_executed' not in st.session_state:
   from langchain import hub
   from langchain.chains import RetrievalQA, RetrievalQAWithSourcesChain
   from langchain.chat_models import ChatOpenAI
@@ -97,6 +81,24 @@ if 'code_executed' not in st.session_state:
   st.session_state.ai_msg_early = rag_chain.invoke({"question": 'bonjour', "chat_history": []})
   st.session_state.code_executed = True
   st.session_state.chat_history = []
+
+def insert_or_fetch_embeddings(index_name):
+  global isVector
+  import pinecone
+  from langchain.vectorstores import Pinecone
+  from langchain.embeddings.openai import OpenAIEmbeddings
+
+  api_config = st.secrets["api"]
+  openai_api_key = api_config["openai_api_key"]    
+  embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+
+  if index_name in pinecone.list_indexes():
+   print(f'Index {index_name} already exists. Loading embeddings ... ', end='')
+   pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
+   vector_store = Pinecone.from_existing_index(index_name, embeddings)
+   isVector = True
+   print('OK')
+  return vector_store
 
 pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
 chat_history = []
@@ -208,6 +210,7 @@ def main():
     global vector_store
     global chat_history
     global question
+    initRAG()
     api_config = st.secrets["api"]
     openai_api_key = api_config["openai_api_key"]
     load_dotenv()
