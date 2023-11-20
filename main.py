@@ -232,9 +232,9 @@ def main():
 
     # Input field for the question
     with right_column:
-        st.title("CPEB 2024 - Posez-nous vos questions...")
-        question = st.text_input(f"Entrez votre question: ")
-        if st.button("Obtenir la réponse") or question:
+        st.title("FE DEV GUIDELINES - Ask me questions...")
+        question = st.text_input(f"Enter question: ")
+        if st.button("Get Answer") or question:
             # Check if a question is provided
             if not question:
                 st.warning("Please enter a question.")
