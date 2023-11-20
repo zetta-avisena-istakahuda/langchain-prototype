@@ -41,15 +41,6 @@ def initRAG(vector_store):
     ]
   )
   condense_q_chain = condense_q_prompt | llm | StrOutputParser()
-  condense_q_chain.invoke(
-    {
-        "chat_history": [
-            HumanMessage(content="What does LLM stand for?"),
-            AIMessage(content="Large language model"),
-        ],
-        "question": "How do transformers work",
-    }
-)
   qa_system_prompt = """
   You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. Always answer in language user asks. If the answer is long, try to make it to be bullet points.
   {context}
