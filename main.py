@@ -124,7 +124,7 @@ def ask_and_get_answer_v3(question, chat_history=[]):
     # st.script("window.scrollTo(0, document.body.scrollHeight);")
   st.session_state.convo_history.extend({'question': question, 'answer': ai_msg_early.content})
   st.write(ai_msg)
-  st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
+  st.session_state.chat_history.insert([HumanMessage(content=question), ai_msg_early])
   return st.session_state.chat_history
 
 def extractWords(words):
