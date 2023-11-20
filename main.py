@@ -116,14 +116,14 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   # for convo in convo_history:
   #  st.write(f"**Question:** {convo.question}")
   #  st.write(f"**Answer:** {convo.answer}")
-  st.write(convo_historyy)
+  st.write(convo_history)
   for chunk in ai_msg:
     print(chunk.content, end="", flush=True)
     ai_msg_early.content += chunk.content
     result_container.markdown(f" **Answer:** {ai_msg_early.content}", unsafe_allow_html=True)
     # st.script("window.scrollTo(0, document.body.scrollHeight);")
   st.session_state.convo_history.extend({'question': question, 'answer': ai_msg_early.content})
-  st.write(ai_msg_early)
+  st.write(ai_msg)
   st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
   return st.session_state.chat_history
 
