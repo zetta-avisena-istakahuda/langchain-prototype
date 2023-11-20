@@ -110,6 +110,7 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   ai_msg_early = st.session_state.ai_msg_early
   ai_msg_early.content = ''
   ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
+  st.write(chat_history)
   result_container = st.empty()
   for chunk in ai_msg:
     print(chunk.content, end="", flush=True)
