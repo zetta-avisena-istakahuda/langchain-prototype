@@ -79,6 +79,7 @@ def initRAG(vector_store):
   st.session_state.ai_msg_early = rag_chain.invoke({"question": 'bonjour', "chat_history": []})
   st.session_state.code_executed = True
   st.session_state.chat_history = []
+  st.session_state.convo_history = []
 
 def insert_or_fetch_embeddings(index_name):
   global isVector
@@ -117,7 +118,7 @@ def ask_and_get_answer_v3(question, chat_history=[]):
     ai_msg_early.content += chunk.content
     result_container.markdown(f" **Answer:** {ai_msg_early.content}", unsafe_allow_html=True)
     # st.script("window.scrollTo(0, document.body.scrollHeight);")
-  st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
+  st.session_state.chat_history.extend([HumanMessage(content=question), AIMessage(content=question), ai_msg_early])
   return st.session_state.chat_history
 
 def extractWords(words):
