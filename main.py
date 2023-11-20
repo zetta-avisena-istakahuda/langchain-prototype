@@ -115,7 +115,7 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   for chunk in ai_msg:
     print(chunk.content, end="", flush=True)
     ai_msg_early.content += chunk.content
-    result_container.markdown(f" {ai_msg_early.content}", unsafe_allow_html=True)
+    result_container.markdown(f" **Answer:** {ai_msg_early.content}", unsafe_allow_html=True)
   st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
   return st.session_state.chat_history
 
