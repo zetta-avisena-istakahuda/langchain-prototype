@@ -113,7 +113,6 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   # st.write(convo_history)
   st.session_state.convo_history.insert(0,{'question': question, 'answer': ai_msg_early.content})
   st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
-  return st.session_state.chat_history
 
 def extractWords(words):
  import re
@@ -232,7 +231,7 @@ def main():
              while True:
               try:
                st.write(f"**Question:** {question}")     
-               st.session_state.chat_history = ask_and_get_answer_v3(question, st.session_state.chat_history)
+               ask_and_get_answer_v3(question, st.session_state.chat_history)
                break  
               except Exception as e:
                print(f"An error occurred: {str(e)}")
