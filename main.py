@@ -65,7 +65,7 @@ def initRAG(vector_store):
     | qa_prompt
     | llm
   )
-
+  st.write('CODE EXECUTION')
   st.session_state.rag_chain = rag_chain
   st.session_state.ai_msg_early = rag_chain.invoke({"question": 'hello', "chat_history": []})
   st.session_state.code_executed = True
