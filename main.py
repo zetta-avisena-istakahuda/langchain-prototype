@@ -40,6 +40,7 @@ def initRAG(vector_store):
    C) Notification reference 
    D) Standardization development
    Answer: D) Standardization development
+   Explanation: .....
   """
   condense_q_prompt = ChatPromptTemplate.from_messages(
     [
@@ -58,6 +59,7 @@ def initRAG(vector_store):
    C) Notification reference 
    D) Standardization development
    Answer: D) Standardization development
+   Explanation: .....
   {context}
   """
   qa_prompt = ChatPromptTemplate.from_messages(
