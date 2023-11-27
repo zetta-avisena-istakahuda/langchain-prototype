@@ -32,7 +32,13 @@ def initRAG(vector_store):
   
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.15, max_tokens=512, openai_api_key=openai_api_key)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':1})
-  condense_q_system_prompt = """always answer in Indonesian language
+  condense_q_system_prompt = """When creating multiple choices quiz, set the choices in bullet points and put the answer below it with explanation. Example:
+   What is the purpose of the document "General Standardization Development Guideline"?
+   A) Translation 
+   B) Bug fixing 
+   C) Notification reference 
+   D) Standardization development
+   Answer: D) Standardization development
   """
   condense_q_prompt = ChatPromptTemplate.from_messages(
     [
@@ -43,7 +49,13 @@ def initRAG(vector_store):
   )
   condense_q_chain = condense_q_prompt | llm | StrOutputParser()
   qa_system_prompt = """
-  Always answer in Indonesian language
+  When creating multiple choices quiz, set the choices in bullet points and put the answer below it with explanation. Example:
+   What is the purpose of the document "General Standardization Development Guideline"?
+   A) Translation 
+   B) Bug fixing 
+   C) Notification reference 
+   D) Standardization development
+   Answer: D) Standardization development
   {context}
   """
   qa_prompt = ChatPromptTemplate.from_messages(
