@@ -216,6 +216,7 @@ def ask_with_memory(vector_store, question, chat_history=[]):
 
 # Streamlit app
 def main():
+    st.write(st.session_state.chat_history)
     from dotenv import load_dotenv
     global vector_store
     global chat_history
