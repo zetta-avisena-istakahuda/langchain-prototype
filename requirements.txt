@@ -5,3 +5,4 @@ pinecone-client
 python-dotenv
 tiktoken
 tomli
+astrapy
