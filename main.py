@@ -7,7 +7,6 @@ import time
 def initRAG(vector_store):
  if 'code_executed' not in st.session_state:
   from langchain import hub
-  from langchain.vectorstores import Pinecone, AstraDB
   from langchain.chains import RetrievalQA, RetrievalQAWithSourcesChain
   from langchain.chat_models import ChatOpenAI
   from langchain.prompts import PromptTemplate, MessagesPlaceholder
@@ -92,6 +91,7 @@ def initRAG(vector_store):
 def insert_or_fetch_embeddings(index_name):
   global isVector
   import pinecone
+  from langchain.vectorstores import Pinecone
   from langchain.embeddings.openai import OpenAIEmbeddings
 
   api_config = st.secrets["api"]
@@ -221,6 +221,7 @@ def ask_with_memory(vector_store, question, chat_history=[]):
 
 # Streamlit app
 def main():
+    from langchain.vectorstores import Pinecone, AstraDB
     from dotenv import load_dotenv
     global vector_store
     global chat_history
