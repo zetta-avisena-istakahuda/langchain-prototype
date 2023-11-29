@@ -30,7 +30,7 @@ def initRAG(vector_store):
   openai_api_key = api_config["openai_api_key"]  
   
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.15, max_tokens=512, openai_api_key=openai_api_key)
-  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':1})
+  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3}, filters={'metadata': {'source': 'RNTG_003'}})
   condense_q_system_prompt = """You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know, say you don't know. Always answer in language user asks. If the answer is long, try to make it to be bullet points.
    When creating multiple choices quiz, set the 4 choices in bullet points with only ONE right answer and put the right answer below it with explanation. Example:
    What is the purpose of the document "General Standardization Development Guideline"?
