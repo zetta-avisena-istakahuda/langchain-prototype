@@ -15,9 +15,8 @@ def initRAG(vector_store):
     ChatPromptTemplate,
     SystemMessagePromptTemplate,
     AIMessagePromptTemplate,
-    HumanMessagePromptTemplate,
-    SystemMessage
-   )
+    HumanMessagePromptTemplate
+  )
   from langchain.schema.messages import AIMessage, HumanMessage
   from langchain.memory import ConversationBufferMemory
   from langchain.agents.types import AgentType
