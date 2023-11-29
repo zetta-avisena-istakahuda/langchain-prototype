@@ -91,7 +91,7 @@ def initRAG(vector_store):
 def insert_or_fetch_embeddings(index_name):
   global isVector
   import pinecone
-  from langchain.vectorstores import Pinecone
+  from langchain.vectorstores import Pinecone, AstraDB
   from langchain.embeddings.openai import OpenAIEmbeddings
 
   api_config = st.secrets["api"]
@@ -229,7 +229,13 @@ def main():
     openai_api_key = api_config["openai_api_key"]
     load_dotenv()
     index_name = 'demo-langchain'
-    vector_store = insert_or_fetch_embeddings(index_name)
+    # vector_store = insert_or_fetch_embeddings(index_name)
+    vector_store = AstraDB(
+        embedding=embeddings,
+        collection_name="astra_vector_demo",
+        api_endpoint="https://288a909a-e845-4ebc-a371-c4fa12e5f11e-us-east1.apps.astra.datastax.com",
+        token="AstraCS:nUUlGWiZPdBeIMoDgelSEJFk:eb5ebad132a13502a8ea60942c655b4d5b31baee3efc19df69ded0e326206b59",
+    )
     initRAG(vector_store)
     # Create a layout with two columns
     left_column, right_column = st.columns([1, 3])
