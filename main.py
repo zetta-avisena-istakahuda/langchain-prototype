@@ -91,7 +91,7 @@ def initRAG(vector_store):
 def insert_or_fetch_embeddings(index_name):
   global isVector
   import pinecone
-  from langchain.vectorstores import Pinecone
+  from langchain.vectorstores import Pinecone, AstraDB
   from langchain.embeddings.openai import OpenAIEmbeddings
 
   api_config = st.secrets["api"]
@@ -104,6 +104,12 @@ def insert_or_fetch_embeddings(index_name):
    vector_store = Pinecone.from_existing_index(index_name, embeddings)
    isVector = True
    print('OK')
+  vector_store = AstraDB(
+        embedding=embeddings,
+        collection_name="astra_vector_demo",
+        api_endpoint="https://288a909a-e845-4ebc-a371-c4fa12e5f11e-us-east1.apps.astra.datastax.com",
+        token="AstraCS:nUUlGWiZPdBeIMoDgelSEJFk:eb5ebad132a13502a8ea60942c655b4d5b31baee3efc19df69ded0e326206b59",
+    )
   return vector_store
 
 pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
@@ -221,7 +227,6 @@ def ask_with_memory(vector_store, question, chat_history=[]):
 
 # Streamlit app
 def main():
-    from langchain.vectorstores import Pinecone, AstraDB
     from dotenv import load_dotenv
     global vector_store
     global chat_history
@@ -230,13 +235,7 @@ def main():
     openai_api_key = api_config["openai_api_key"]
     load_dotenv()
     index_name = 'demo-langchain'
-    # vector_store = insert_or_fetch_embeddings(index_name)
-    vector_store = AstraDB(
-        embedding=embeddings,
-        collection_name="astra_vector_demo",
-        api_endpoint="https://288a909a-e845-4ebc-a371-c4fa12e5f11e-us-east1.apps.astra.datastax.com",
-        token="AstraCS:nUUlGWiZPdBeIMoDgelSEJFk:eb5ebad132a13502a8ea60942c655b4d5b31baee3efc19df69ded0e326206b59",
-    )
+    vector_store = insert_or_fetch_embeddings(index_name)
     initRAG(vector_store)
     # Create a layout with two columns
     left_column, right_column = st.columns([1, 3])
