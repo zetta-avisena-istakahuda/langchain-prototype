@@ -31,7 +31,7 @@ def initRAG(vector_store):
   
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.15, max_tokens=512, openai_api_key=openai_api_key)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3}, filters={'metadata': {'source': 'RNTG_003'}})
-  condense_q_system_prompt = """You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know, say you don't know. Always answer in language user asks. If the answer is long, try to make it to be bullet points.
+  condense_q_system_prompt = """
   """
   condense_q_prompt = ChatPromptTemplate.from_messages(
     [
@@ -42,7 +42,6 @@ def initRAG(vector_store):
   )
   condense_q_chain = condense_q_prompt | llm | StrOutputParser()
   qa_system_prompt = """
-  You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know, say you don't know. Always answer in language user asks. If the answer is long, try to make it to be bullet points.
   {context}
   """
   qa_prompt = ChatPromptTemplate.from_messages(
