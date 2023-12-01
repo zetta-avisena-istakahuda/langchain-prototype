@@ -94,7 +94,7 @@ def insert_or_fetch_embeddings(index_name):
         api_endpoint="https://288a909a-e845-4ebc-a371-c4fa12e5f11e-us-east1.apps.astra.datastax.com",
         token="AstraCS:nUUlGWiZPdBeIMoDgelSEJFk:eb5ebad132a13502a8ea60942c655b4d5b31baee3efc19df69ded0e326206b59",
     )
-  return vector_store
+  return vstore
 
 pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
 chat_history = []
