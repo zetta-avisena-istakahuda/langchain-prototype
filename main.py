@@ -130,82 +130,82 @@ def extractWords(words):
  else:
   print("Pattern not found.")
 
-# Function to generate answers based on questions
-def generate_answer(question):
-    # Replace this with your logic to generate answers
-    # For now, it's hardcoded answers
-    if question.lower() == 'what is your name?':
-        return "My name is ChatGPT."
-    elif question.lower() == 'how does it work?':
-        return "I use natural language processing to understand and generate text."
-    else:
-        return "I don't have an answer to that question."
+# # Function to generate answers based on questions
+# def generate_answer(question):
+#     # Replace this with your logic to generate answers
+#     # For now, it's hardcoded answers
+#     if question.lower() == 'what is your name?':
+#         return "My name is ChatGPT."
+#     elif question.lower() == 'how does it work?':
+#         return "I use natural language processing to understand and generate text."
+#     else:
+#         return "I don't have an answer to that question."
 
 
 
-def ask_and_get_answer_v2(vector_store, query):
-  from langchain.chains import RetrievalQA
-  from langchain.chat_models import ChatOpenAI
-  from langchain.agents.types import AgentType
-  from langchain.agents import initialize_agent
-  from langchain.tools import Tool
+# def ask_and_get_answer_v2(vector_store, query):
+#   from langchain.chains import RetrievalQA
+#   from langchain.chat_models import ChatOpenAI
+#   from langchain.agents.types import AgentType
+#   from langchain.agents import initialize_agent
+#   from langchain.tools import Tool
 
-  api_config = st.secrets["api"]
-  openai_api_key = api_config["openai_api_key"]
-  answer = ""
-  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0, openai_api_key=openai_api_key)
-  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
-  chain=RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
-  system_message = """
-        answer in French."
-        "if answer has some points, divide it to be bullet points"
-        """
-  tools = [
-    Tool(
-        name="qa-vet",
-        func=chain.run(query),
-        description="Useful when you need to answer vet questions",
-    )
-  ]
-  executor = initialize_agent(
-    agent = AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
-    tools=tools,
-    llm=llm,
-    agent_kwargs={"system_message": system_message},
-    verbose=False,
-  )
-  result = executor.run({'input': query, 'chat_history': []})
-  return(result) 
+#   api_config = st.secrets["api"]
+#   openai_api_key = api_config["openai_api_key"]
+#   answer = ""
+#   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0, openai_api_key=openai_api_key)
+#   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
+#   chain=RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
+#   system_message = """
+#         answer in French."
+#         "if answer has some points, divide it to be bullet points"
+#         """
+#   tools = [
+#     Tool(
+#         name="qa-vet",
+#         func=chain.run(query),
+#         description="Useful when you need to answer vet questions",
+#     )
+#   ]
+#   executor = initialize_agent(
+#     agent = AgentType.CHAT_CONVERSATIONAL_REACT_DESCRIPTION,
+#     tools=tools,
+#     llm=llm,
+#     agent_kwargs={"system_message": system_message},
+#     verbose=False,
+#   )
+#   result = executor.run({'input': query, 'chat_history': []})
+#   return(result) 
 
-def ask_and_get_answer(vector_store, query):
-  from langchain.chains import RetrievalQA
-  from langchain.chat_models import ChatOpenAI
+# def ask_and_get_answer(vector_store, query):
+#   from langchain.chains import RetrievalQA
+#   from langchain.chat_models import ChatOpenAI
 
-  api_config = st.secrets["api"]
-  openai_api_key = api_config["openai_api_key"]
-  answer = ""
-  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0, openai_api_key=openai_api_key)
-  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
-  chain=RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
+#   api_config = st.secrets["api"]
+#   openai_api_key = api_config["openai_api_key"]
+#   answer = ""
+#   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0, openai_api_key=openai_api_key)
+#   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
+#   chain=RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
 
-  answer = chain.run(query)
-  return(answer)
+#   answer = chain.run(query)
+#   return(answer)
 
-def ask_with_memory(vector_store, question, chat_history=[]):
-  from langchain.chains import ConversationalRetrievalChain
-  from langchain.chat_models import ChatOpenAI
+# def ask_with_memory(vector_store, question, chat_history=[]):
+#   from langchain.chains import ConversationalRetrievalChain
+#   from langchain.chat_models import ChatOpenAI
 
-  api_config = st.secrets["api"]
-  openai_api_key = api_config["openai_api_key"]
+#   api_config = st.secrets["api"]
+#   openai_api_key = api_config["openai_api_key"]
 
-  llm = ChatOpenAI(temperature=1, openai_api_key=openai_api_key)
-  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
+#   llm = ChatOpenAI(temperature=1, openai_api_key=openai_api_key)
+#   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
 
-  crc = ConversationalRetrievalChain.from_llm(llm, retriever)
-  result = crc({'question': question, 'chat_history': chat_history})
-  chat_history.append((question, result['answer']))
+#   crc = ConversationalRetrievalChain.from_llm(llm, retriever)
+#   result = crc({'question': question, 'chat_history': chat_history})
+#   chat_history.append((question, result['answer']))
 
-  return result, chat_history
+#   return result, chat_history
 
 # Streamlit app
 def main():
