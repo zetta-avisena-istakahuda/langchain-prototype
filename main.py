@@ -30,7 +30,7 @@ def initRAG(vector_store):
   openai_api_key = api_config["openai_api_key"]  
   
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.15, max_tokens=512, openai_api_key=openai_api_key)
-  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3}, filters={'metadata': {'source': 'cpeb_2024'}})
+  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3}, filters={'metadata': {'source': 'cpeb_2024_2'}})
   condense_q_system_prompt = """
   You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know, say you don't know. Always answer in French. If the answer is long, try to make it to be bullet points.
   """
