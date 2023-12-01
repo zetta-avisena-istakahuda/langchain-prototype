@@ -30,7 +30,7 @@ def initRAG(vector_store):
   openai_api_key = api_config["openai_api_key"]  
   
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.15, max_tokens=512, openai_api_key=openai_api_key)
-  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3}, filters={'metadata': {'source': 'cpeb_2024_2'}})
+  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3})
   condense_q_system_prompt = """
   You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know, say you don't know. Always answer in French. If the answer is long, try to make it to be bullet points.
   """
@@ -84,7 +84,7 @@ def insert_or_fetch_embeddings(index_name):
 
   if index_name in pinecone.list_indexes():
    print(f'Index {index_name} already exists. Loading embeddings ... ', end='')
-   pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
+   pinecone.init(api_key='95fbf7ad-1010-4155-b5c7-4d6cfdad053c', environment='gcp-starter')
    vector_store = Pinecone.from_existing_index(index_name, embeddings)
    isVector = True
    print('OK')
@@ -94,7 +94,7 @@ def insert_or_fetch_embeddings(index_name):
         api_endpoint="https://288a909a-e845-4ebc-a371-c4fa12e5f11e-us-east1.apps.astra.datastax.com",
         token="AstraCS:nUUlGWiZPdBeIMoDgelSEJFk:eb5ebad132a13502a8ea60942c655b4d5b31baee3efc19df69ded0e326206b59",
     )
-  return vstore
+  return vector_store
 
 pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
 chat_history = []
