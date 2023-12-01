@@ -112,7 +112,7 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   result_container = st.empty()
   # for convo in convo_history:
   #  st.write(f"**Question:** {convo.question}")
-  #  st.write(f"**Answer:** {convo.answer}")
+  #  st.write(f"**Réponse:** {convo.answer}")
   for chunk in ai_msg:
     print(chunk.content, end="", flush=True)
     ai_msg_early.content += chunk.content
