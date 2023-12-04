@@ -83,6 +83,7 @@ def detect_and_create_quizzes(text, chat_history=[]):
     rag_chain = st.session_state.rag_chain
     ai_msg_early = st.session_state.ai_msg_early
     convo_history = st.session_state.convo_history
+    result_container = st.empty()
     ai_msg_early.content = ''
     number_of_quiz_per_iteration = 4
     keywords = ['generate', 'create', 'quiz', 'question']
@@ -91,7 +92,6 @@ def detect_and_create_quizzes(text, chat_history=[]):
     if any(keyword in text.lower() for keyword in keywords) and number_match:
         original_number = int(number_match.group())
         isFirst = True
-        result_container = st.empty()
         while original_number > 0:
             time.sleep(1)
             if isFirst:
