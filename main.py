@@ -199,13 +199,10 @@ def main():
                 st.warning("Please enter a question.")
             else:
              # while True:
-              try:
                st.write(f"**Question:** {question}")
                detect_and_create_quizzes(question,  st.session_state.chat_history)
                 # ask_and_get_answer_v3(question, st.session_state.chat_history)
                # break  
-              except Exception as e:
-               print(f"An error occurred: {str(e)}")
 
 if __name__ == "__main__":
  main()
