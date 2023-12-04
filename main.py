@@ -109,7 +109,7 @@ def detect_and_create_quizzes(text, chat_history=[]):
              st.write(f"Question: {question}")
              try:
                 ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
-                result_container = st.empty()
+                # result_container = st.empty()
                 for chunk in ai_msg:
                  print(chunk.content, end="", flush=True)
                  ai_msg_early.content += chunk.content
