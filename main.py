@@ -27,7 +27,7 @@ def initRAG(vector_store):
   from langchain.schema import StrOutputParser
   from langchain.schema.runnable import RunnablePassthrough
   from langchain.schema.messages import AIMessage, HumanMessage
-
+  import openai
 
   api_config = st.secrets["api"]
   openai_api_key = api_config["openai_api_key"]  
