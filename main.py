@@ -205,8 +205,8 @@ def main():
              while True:
               try:
                st.write(f"**Question:** {question}")
-               if detect_and_create_quizzes(question,  st.session_state.chat_history) is False:
-                ask_and_get_answer_v3(question, st.session_state.chat_history)
+               detect_and_create_quizzes(question,  st.session_state.chat_history)
+                # ask_and_get_answer_v3(question, st.session_state.chat_history)
                break  
               except Exception as e:
                print(f"An error occurred: {str(e)}")
