@@ -103,7 +103,7 @@ def detect_and_create_quizzes(text, chat_history):
              for chunk in ai_msg:
                ai_msg_early.content += chunk.content
                formatted_content = ai_msg_early.content.replace('\n', '<br>')
-               st.write(f"Answer")
+               st.write(f"Answer: " {formatted_content})
                result_container.markdown(f" **Answer:** {formatted_content}", unsafe_allow_html=True)
                 # print(f"{ai_msg.content}")
                 # print(cb)
