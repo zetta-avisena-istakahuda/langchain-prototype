@@ -105,7 +105,7 @@ def detect_and_create_quizzes(text, chat_history=[]):
              #   formatted_content = ai_msg_early.content.replace('\n', '<br>')
              #   st.write(f"Answer: {formatted_content}")
              #   result_container.markdown(f" **Answer:** {formatted_content}", unsafe_allow_html=True)
-             st.write(f"{ai_msg.content}")
+             st.write(f"{ai_msg.content.replace('\n', '<br>')}")
                 # print(cb)
              isFirst = False
             else:
