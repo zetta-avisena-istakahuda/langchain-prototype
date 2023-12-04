@@ -80,7 +80,6 @@ def initRAG(vector_store):
 
 def detect_and_create_quizzes(text, chat_history=[]):
     from langchain.schema.messages import AIMessage, HumanMessage
-    st.write(f"Goes Here")
     rag_chain = st.session_state.rag_chain
     ai_msg_early = st.session_state.ai_msg_early
     convo_history = st.session_state.convo_history
@@ -92,13 +91,11 @@ def detect_and_create_quizzes(text, chat_history=[]):
     if any(keyword in text.lower() for keyword in keywords) and number_match:
         original_number = int(number_match.group())
         print(f"Original Number: {original_number}")
-        st.write(f"Original Number: {original_number}")
         isFirst = True
         while original_number > 0:
             time.sleep(1)
             if isFirst:
              question = re.sub(r'\b\d+\b', str(min(original_number, number_of_quiz_per_iteration)), text)
-             st.write(f"Question: {question}")
              ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
              # for chunk in ai_msg:
              #   ai_msg_early.content += chunk.content
