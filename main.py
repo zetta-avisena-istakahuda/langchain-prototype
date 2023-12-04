@@ -110,7 +110,7 @@ def detect_and_create_quizzes(text, chat_history=[]):
             final_content += formatted_content + '\n\n'
             result_container.markdown(f"{final_content}", unsafe_allow_html=True)
             st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg.content])
-            chat_history.extend([HumanMessage(content=question), ai_msg.content])
+            chat_history.extend([HumanMessage(content=question), ai_msg])
             original_number -= number_of_quiz_per_iteration
     else:
        return False
