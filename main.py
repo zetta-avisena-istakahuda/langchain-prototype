@@ -79,6 +79,7 @@ def initRAG(vector_store):
   st.session_state.convo_history = []
 
 def detect_and_create_quizzes(text, chat_history):
+    print("GOES HERE")
     from langchain.schema.messages import AIMessage, HumanMessage
     rag_chain = st.session_state.rag_chain
     ai_msg_early = st.session_state.ai_msg_early
@@ -202,12 +203,12 @@ def main():
             if not question:
                 st.warning("Please enter a question.")
             else:
-             # while True:
+             while True:
               try:
                st.write(f"**Question:** {question}")
                detect_and_create_quizzes(question,  st.session_state.chat_history)
                 # ask_and_get_answer_v3(question, st.session_state.chat_history)
-               # break  
+               break  
               except Exception as e:
                print(f"An error occurred: {str(e)}")
 
