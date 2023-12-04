@@ -102,7 +102,8 @@ def detect_and_create_quizzes(text, chat_history=[]):
                print(chunk.content, end="", flush=True)
                ai_msg_early.content += chunk.content
                formatted_content = ai_msg_early.content.replace('\n', '<br>')
-               result_container.markdown(f"{final_content + formatted_content}", unsafe_allow_html=True)
+               final_content += formatted_content + '\n\n'
+               result_container.markdown(f"{final_content}", unsafe_allow_html=True)
              isFirst = False
             else:
              question = f"Continue the number. Don't jump the number. Create {min(original_number, number_of_quiz_per_iteration)} again different quizzes"
@@ -113,10 +114,10 @@ def detect_and_create_quizzes(text, chat_history=[]):
                  print(chunk.content, end="", flush=True)
                  ai_msg_early.content += chunk.content
                  formatted_content = ai_msg_early.content.replace('\n', '<br>')
-                 result_container.markdown(f"{final_content + formatted_content}", unsafe_allow_html=True)
+                 final_content += formatted_content + '\n\n'
+                 result_container.markdown(f"{final_content}", unsafe_allow_html=True)
              except Exception as e:
               print(f"An error occurred: {e}")
-            final_content += formatted_content + '\n\n'
             st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
             chat_history.extend([HumanMessage(content=question), ai_msg_early])
             original_number -= number_of_quiz_per_iteration
