@@ -77,8 +77,11 @@ def initRAG(vector_store):
   st.session_state.convo_history = []
 
 def detect_and_create_quizzes(text, chat_history):
-    api_config = st.secrets["api"]
-    openai_api_key = api_config["openai_api_key"] 
+    from langchain.schema.messages import AIMessage, HumanMessage
+    rag_chain = st.session_state.rag_chain
+    ai_msg_early = st.session_state.ai_msg_early
+    convo_history = st.session_state.convo_history
+    ai_msg_early.content = ''
     number_of_quiz_per_iteration = 4
     keywords = ['generate', 'create', 'quiz', 'question']
     number_match = re.search(r'\b\d+\b', text)
