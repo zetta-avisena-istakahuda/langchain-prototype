@@ -90,7 +90,6 @@ def detect_and_create_quizzes(text, chat_history=[]):
 
     if any(keyword in text.lower() for keyword in keywords) and number_match:
         original_number = int(number_match.group())
-        print(f"Original Number: {original_number}")
         isFirst = True
         while original_number > 0:
             time.sleep(1)
