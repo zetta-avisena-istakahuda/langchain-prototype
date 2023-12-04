@@ -117,6 +117,7 @@ def detect_and_create_quizzes(text, chat_history=[]):
                  result_container.markdown(f"{formatted_content}", unsafe_allow_html=True)
              except Exception as e:
               print(f"An error occurred: {e}")
+            ai_msg_early.contennt = ''  
             final_content += formatted_content + '\n\n'
             st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
             chat_history.extend([HumanMessage(content=question), ai_msg_early])
