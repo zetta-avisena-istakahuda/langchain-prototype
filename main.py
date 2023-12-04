@@ -83,7 +83,6 @@ def detect_and_create_quizzes(text, chat_history=[]):
     rag_chain = st.session_state.rag_chain
     ai_msg_early = st.session_state.ai_msg_early
     convo_history = st.session_state.convo_history
-    result_container = st.empty()
     ai_msg_early.content = ''
     final_content = ''
     number_of_quiz_per_iteration = 4
@@ -99,6 +98,7 @@ def detect_and_create_quizzes(text, chat_history=[]):
              question = re.sub(r'\b\d+\b', str(min(original_number, number_of_quiz_per_iteration)), text)
              st.write(f"Question: {question}")
              ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
+             result_container = st.empty()
              for chunk in ai_msg:
                print(chunk.content, end="", flush=True)
                ai_msg_early.content += chunk.content
@@ -110,6 +110,7 @@ def detect_and_create_quizzes(text, chat_history=[]):
              st.write(f"Question: {question}")
              try:
                 ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
+                result_container = st.empty()
                 for chunk in ai_msg:
                  print(chunk.content, end="", flush=True)
                  ai_msg_early.content += chunk.content
