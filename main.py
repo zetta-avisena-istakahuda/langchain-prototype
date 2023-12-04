@@ -105,15 +105,12 @@ def detect_and_create_quizzes(text, chat_history=[]):
              isFirst = False
             else:
              question = f"Continue the number. Don't jump the number. Create {min(original_number, number_of_quiz_per_iteration)} again different quizzes"
-             try:
-                ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
+             ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
                 # for chunk in ai_msg:
                   # ai_msg_early.content += chunk.content
-                formatted_content = ai_msg_early.content.replace('\n', '<br>')
+             formatted_content = ai_msg_early.content.replace('\n', '<br>')
                   # result_container.markdown(f" **Answer:** {formatted_content}", unsafe_allow_html=True)
-                result_container.markdown(f" {formatted_content}", unsafe_allow_html=True
-             except Exception as e:
-              print(f"An error occurred: {e}")
+             result_container.markdown(f" {formatted_content}", unsafe_allow_html=True
             st.session_state.chat_history.extend.extend([HumanMessage(content=question), ai_msg_early])
             print("")
             original_number -= number_of_quiz_per_iteration
