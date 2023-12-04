@@ -101,7 +101,7 @@ def detect_and_create_quizzes(text, chat_history=[]):
              for chunk in ai_msg:
                print(chunk.content, end="", flush=True)
                ai_msg_early.content += chunk.content
-               formatted_content = final_content + ai_msg_early.content.replace('\n', '<br>')
+               formatted_content = ai_msg_early.content.replace('\n', '<br>')
                result_container.markdown(f"{formatted_content}", unsafe_allow_html=True)
              isFirst = False
             else:
@@ -113,7 +113,7 @@ def detect_and_create_quizzes(text, chat_history=[]):
                 for chunk in ai_msg:
                  print(chunk.content, end="", flush=True)
                  ai_msg_early.content += chunk.content
-                 formatted_content = final_content + ai_msg_early.content.replace('\n', '<br>')
+                 formatted_content = ai_msg_early.content.replace('\n', '<br>')
                  result_container.markdown(f"{formatted_content}", unsafe_allow_html=True)
              except Exception as e:
               print(f"An error occurred: {e}")
