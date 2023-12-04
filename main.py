@@ -97,21 +97,28 @@ def detect_and_create_quizzes(text, chat_history=[]):
             if isFirst:
              question = re.sub(r'\b\d+\b', str(min(original_number, number_of_quiz_per_iteration)), text)
              st.write(f"Question: {question}")
-             ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
-             formatted_content = ai_msg.content.replace('\n', '<br>')
+             ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
+             for chunk in ai_msg:
+               print(chunk.content, end="", flush=True)
+               ai_msg_early.content += chunk.content
+               formatted_content = ai_msg_early.content.replace('\n', '<br>')
+               result_container.markdown(f"{final_content + formatted_content}", unsafe_allow_html=True)
              isFirst = False
             else:
              question = f"Continue the number. Don't jump the number. Create {min(original_number, number_of_quiz_per_iteration)} again different quizzes"
              st.write(f"Question: {question}")
              try:
-                ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
-                formatted_content = ai_msg.content.replace('\n', '<br>')
+                ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
+                for chunk in ai_msg:
+                 print(chunk.content, end="", flush=True)
+                 ai_msg_early.content += chunk.content
+                 formatted_content = ai_msg_early.content.replace('\n', '<br>')
+                 result_container.markdown(f"{final_content + formatted_content}", unsafe_allow_html=True)
              except Exception as e:
               print(f"An error occurred: {e}")
             final_content += formatted_content + '\n\n'
-            result_container.markdown(f"{final_content}", unsafe_allow_html=True)
-            st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg.content])
-            chat_history.extend([HumanMessage(content=question), ai_msg])
+            st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
+            chat_history.extend([HumanMessage(content=question), ai_msg_early])
             original_number -= number_of_quiz_per_iteration
     else:
        return False
