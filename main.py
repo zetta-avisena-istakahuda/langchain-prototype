@@ -102,23 +102,20 @@ def detect_and_create_quizzes(text, chat_history=[]):
              ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
              # for chunk in ai_msg:
              #   ai_msg_early.content += chunk.content
-             #   formatted_content = ai_msg_early.content.replace('\n', '<br>')
+             formatted_content = ai_msg_early.content.replace('\n', '<br>')
              #   st.write(f"Answer: {formatted_content}")
              #   result_container.markdown(f" **Answer:** {formatted_content}", unsafe_allow_html=True)
-             st.write(f"{ai_msg.content.replace('\n', '<br>')}")
-                # print(cb)
+             st.write(f"{ai_msg.content}")
              isFirst = False
             else:
              question = f"Continue the number. Don't jump the number. Create {min(original_number, number_of_quiz_per_iteration)} again different quizzes"
              try:
-               with get_openai_callback() as cb:
-                ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
-                for chunk in ai_msg:
-                  ai_msg_early.content += chunk.content
-                  formatted_content = ai_msg_early.content.replace('\n', '<br>')
-                  result_container.markdown(f" **Answer:** {formatted_content}", unsafe_allow_html=True)
-                # print(f"{ai_msg.content}")
-                # print(cb)
+                ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
+                # for chunk in ai_msg:
+                  # ai_msg_early.content += chunk.content
+                formatted_content = ai_msg_early.content.replace('\n', '<br>')
+                  # result_container.markdown(f" **Answer:** {formatted_content}", unsafe_allow_html=True)
+                print(f"{ai_msg.content}")
              except Exception as e:
               print(f"An error occurred: {e}")
             st.session_state.chat_history.extend.extend([HumanMessage(content=question), ai_msg_early])
