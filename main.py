@@ -99,13 +99,13 @@ def detect_and_create_quizzes(text, chat_history=[]):
             if isFirst:
              question = re.sub(r'\b\d+\b', str(min(original_number, number_of_quiz_per_iteration)), text)
              st.write(f"Question: {question}")
-             ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
-             for chunk in ai_msg:
-               ai_msg_early.content += chunk.content
-               formatted_content = ai_msg_early.content.replace('\n', '<br>')
-               st.write(f"Answer: {formatted_content}")
-               result_container.markdown(f" **Answer:** {formatted_content}", unsafe_allow_html=True)
-                # print(f"{ai_msg.content}")
+             ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
+             # for chunk in ai_msg:
+             #   ai_msg_early.content += chunk.content
+             #   formatted_content = ai_msg_early.content.replace('\n', '<br>')
+             #   st.write(f"Answer: {formatted_content}")
+             #   result_container.markdown(f" **Answer:** {formatted_content}", unsafe_allow_html=True)
+             st.write(f"{ai_msg.content}")
                 # print(cb)
              isFirst = False
             else:
