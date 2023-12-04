@@ -152,7 +152,7 @@ def insert_or_fetch_embeddings(index_name):
 pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
 chat_history = []
 isVector = False
-vector_store = None0
+vector_store = None
 question = None
 
 def ask_and_get_answer_v3(question, chat_history=[]):
