@@ -95,18 +95,18 @@ def detect_and_create_quizzes(text, chat_history=[]):
         while original_number > 0:
             if isFirst:
              question = re.sub(r'\b\d+\b', str(min(original_number, number_of_quiz_per_iteration)), text)
-             st.write(f"Question: {question}")
+             # st.write(f"Question: {question}")
              ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
              result_container = st.empty()
              for chunk in ai_msg:
                print(chunk.content, end="", flush=True)
                ai_msg_early.content += chunk.content
                formatted_content = ai_msg_early.content.replace('\n', '<br>')
-               # result_container.markdown(f"{formatted_content}", unsafe_allow_html=True)
+               result_container.markdown(f"{formatted_content}", unsafe_allow_html=True)
              isFirst = False
             else:
              question = f"Continue the number. Don't jump the number. Create {min(original_number, number_of_quiz_per_iteration)} again different quizzes"
-             st.write(f"Question: {question}")
+             # st.write(f"Question: {question}")
              try:
                 ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
                 # result_container = st.empty()
