@@ -90,7 +90,7 @@ def detect_and_create_quizzes(text, chat_history):
              question = re.sub(r'\b\d+\b', str(min(original_number, number_of_quiz_per_iteration)), text)
              with get_openai_callback() as cb:
                 ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
-                 for chunk in ai_msg:
+                for chunk in ai_msg:
                   ai_msg_early.content += chunk.content
                   formatted_content = ai_msg_early.content.replace('\n', '<br>')
                   result_container.markdown(f" **Answer:** {formatted_content}", unsafe_allow_html=True)
@@ -102,7 +102,7 @@ def detect_and_create_quizzes(text, chat_history):
              try:
                with get_openai_callback() as cb:
                 ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
-                 for chunk in ai_msg:
+                for chunk in ai_msg:
                   ai_msg_early.content += chunk.content
                   formatted_content = ai_msg_early.content.replace('\n', '<br>')
                   result_container.markdown(f" **Answer:** {formatted_content}", unsafe_allow_html=True)
