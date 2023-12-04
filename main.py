@@ -89,22 +89,22 @@ def detect_and_create_quizzes(text, chat_history=[]):
     number_match = re.search(r'\b\d+\b', text)
 
     if any(keyword in text.lower() for keyword in keywords) and number_match:
-        original_number = int(number_match.group())
-        isFirst = True
-        while original_number > 0:
-         if isFirst:
-          question = re.sub(r'\b\d+\b', str(min(original_number, number_of_quiz_per_iteration)), text)
-          ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
-          formatted_content = ai_msg.content.replace('\n', '<br>')
-          result_container.markdown(f" {formatted_content}", unsafe_allow_html=True)
-          isFirst = False
-         else:
-          question = f"Continue the number. Don't jump the number. Create {min(original_number, number_of_quiz_per_iteration)} again different quizzes"
-          ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
-          formatted_content = ai_msg_early.content.replace('\n', '<br>')
-          result_container.markdown(f" {formatted_content}", unsafe_allow_html=True
-         st.session_state.chat_history.extend([HumanMessage(content=question), formatted_content])
-         original_number -= number_of_quiz_per_iteration
+        # original_number = int(number_match.group())
+        # isFirst = True
+        # while original_number > 0:
+        #  if isFirst:
+        #   question = re.sub(r'\b\d+\b', str(min(original_number, number_of_quiz_per_iteration)), text)
+        #   ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
+        #   formatted_content = ai_msg.content.replace('\n', '<br>')
+        #   result_container.markdown(f" {formatted_content}", unsafe_allow_html=True)
+        #   isFirst = False
+        #  else:
+        #   question = f"Continue the number. Don't jump the number. Create {min(original_number, number_of_quiz_per_iteration)} again different quizzes"
+        #   ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
+        #   formatted_content = ai_msg_early.content.replace('\n', '<br>')
+        #   result_container.markdown(f" {formatted_content}", unsafe_allow_html=True
+        #  st.session_state.chat_history.extend([HumanMessage(content=question), formatted_content])
+        #  original_number -= number_of_quiz_per_iteration
     else:
       return False
 
