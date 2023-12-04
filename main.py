@@ -85,6 +85,7 @@ def detect_and_create_quizzes(text, chat_history=[]):
     convo_history = st.session_state.convo_history
     result_container = st.empty()
     ai_msg_early.content = ''
+    final_content = ''
     number_of_quiz_per_iteration = 4
     keywords = ['generate', 'create', 'quiz', 'question']
     number_match = re.search(r'\b\d+\b', text)
@@ -106,7 +107,8 @@ def detect_and_create_quizzes(text, chat_history=[]):
                 formatted_content = ai_msg.content.replace('\n', '<br>')
              except Exception as e:
               print(f"An error occurred: {e}")
-            result_container.markdown(f"{formatted_content}", unsafe_allow_html=True)
+            final_content += formatted_content
+            result_container.markdown(f"{final_content}", unsafe_allow_html=True)
             st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
             original_number -= number_of_quiz_per_iteration
     else:
