@@ -32,10 +32,9 @@ def initRAG(vector_store):
 
   api_config = st.secrets["api"]
   openai_api_key = api_config["openai_api_key"]
-  %env OPENAI_API_KEY = openai_api_key
   fine_tuned_model_id = api_config["fine_tuned_model_id"]
   
-  job = openai.fine_tuning.jobs.retrieve(fine_tuned_model_id)
+  job = openai.fine_tuning.jobs.retrieve(fine_tuned_model_id, openai_api_key=openai_api_key)
   model_id = job.fine_tuned_model
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.6, max_tokens=512, openai_api_key=openai_api_key)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3}, filters={'metadata': {'source': 'emarketing_textbook_download'}})
