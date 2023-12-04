@@ -87,9 +87,9 @@ def detect_and_create_quizzes(text, chat_history=[]):
     number_of_quiz_per_iteration = 4
     keywords = ['generate', 'create', 'quiz', 'question']
     number_match = re.search(r'\b\d+\b', text)
-
+ 
     if any(keyword in text.lower() for keyword in keywords) and number_match:
-        # original_number = int(number_match.group())
+        original_number = int(number_match.group())
         # isFirst = True
         # while original_number > 0:
         #  if isFirst:
