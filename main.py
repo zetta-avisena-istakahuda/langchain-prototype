@@ -106,7 +106,7 @@ def detect_and_create_quizzes(text, chat_history):
                result_container.markdown(f" **Answer:** {formatted_content}", unsafe_allow_html=True)
                 # print(f"{ai_msg.content}")
                 # print(cb)
-             st.write(f"Answer: {formattted_content}")
+             st.write(f"Answer: {formatted_content}")
              isFirst = False
             else:
              question = f"Continue the number. Don't jump the number. Create {min(original_number, number_of_quiz_per_iteration)} again different quizzes"
