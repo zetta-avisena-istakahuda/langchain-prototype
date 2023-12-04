@@ -99,6 +99,7 @@ def detect_and_create_quizzes(text, chat_history):
             if isFirst:
              question = re.sub(r'\b\d+\b', str(min(original_number, number_of_quiz_per_iteration)), text)
              with get_openai_callback() as cb:
+                st.write(f"Question: {question}")
                 ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
                 for chunk in ai_msg:
                   ai_msg_early.content += chunk.content
