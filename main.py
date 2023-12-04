@@ -196,7 +196,7 @@ def main():
 
     # Input field for the question
     with right_column:
-        st.title("E-Marketing Textbook - Ask me questions...")
+        st.title("E-Marketing Textbook - Quiz Creation...")
         question = st.text_input(f"Enter question: ")
         if st.button("Get Answer") or question:
             # Check if a question is provided
