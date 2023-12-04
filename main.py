@@ -93,7 +93,6 @@ def detect_and_create_quizzes(text, chat_history=[]):
         original_number = int(number_match.group())
         isFirst = True
         while original_number > 0:
-            st.write(final_content)
             if isFirst:
              question = re.sub(r'\b\d+\b', str(min(original_number, number_of_quiz_per_iteration)), text)
              st.write(f"Question: {question}")
