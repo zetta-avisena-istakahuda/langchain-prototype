@@ -151,7 +151,7 @@ def insert_or_fetch_embeddings(index_name):
 pinecone.init(api_key='bbb687a2-cfb9-4b3e-8210-bece030f2776', environment='gcp-starter')
 chat_history = []
 isVector = False
-vector_store = None
+vector_store = None0
 question = None
 
 def ask_and_get_answer_v3(question, chat_history=[]):
@@ -202,12 +202,12 @@ def main():
             if not question:
                 st.warning("Please enter a question.")
             else:
-             while True:
+             # while True:
               try:
                st.write(f"**Question:** {question}")
                detect_and_create_quizzes(question,  st.session_state.chat_history)
                 # ask_and_get_answer_v3(question, st.session_state.chat_history)
-               break  
+               # break  
               except Exception as e:
                print(f"An error occurred: {str(e)}")
 
