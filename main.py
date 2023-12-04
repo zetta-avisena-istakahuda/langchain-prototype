@@ -103,7 +103,7 @@ def detect_and_create_quizzes(text, chat_history=[]):
           ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
           formatted_content = ai_msg_early.content.replace('\n', '<br>')
           result_container.markdown(f" {formatted_content}", unsafe_allow_html=True
-         st.session_state.chat_history.extend([HumanMessage(content=question), formatted_content])
+         # st.session_state.chat_history.extend([HumanMessage(content=question), formatted_content])
          original_number -= number_of_quiz_per_iteration
     else:
       return False
