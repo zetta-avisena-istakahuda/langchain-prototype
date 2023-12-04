@@ -80,7 +80,7 @@ def initRAG(vector_store):
 
 def detect_and_create_quizzes(text, chat_history):
     from langchain.schema.messages import AIMessage, HumanMessage
-     st.write(f"Goes Here")
+    st.write(f"Goes Here")
     rag_chain = st.session_state.rag_chain
     ai_msg_early = st.session_state.ai_msg_early
     convo_history = st.session_state.convo_history
