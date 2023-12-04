@@ -102,6 +102,7 @@ def detect_and_create_quizzes(text, chat_history=[]):
              isFirst = False
             else:
              question = f"Continue the number. Don't jump the number. Create {min(original_number, number_of_quiz_per_iteration)} again different quizzes"
+             st.write(f"Question: {question}")
              try:
                 ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
                 formatted_content = ai_msg.content.replace('\n', '<br>')
