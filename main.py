@@ -85,7 +85,7 @@ def detect_and_create_quizzes(text, chat_history=[]):
     convo_history = st.session_state.convo_history
     ai_msg_early.content = ''
     final_content = ''
-    number_of_quiz_per_iteration = 4
+    number_of_quiz_per_iteration = 15
     keywords = ['generate', 'create', 'quiz', 'question']
     number_match = re.search(r'\b\d+\b', text)
  
