@@ -105,7 +105,7 @@ def detect_and_create_quizzes(text, chat_history=[]):
                result_container.markdown(f"{formatted_content}", unsafe_allow_html=True)
              isFirst = False
             else:
-             question = f"Continue the number. Don't jump the number. Create {min(original_number, number_of_quiz_per_iteration)} again different quizzes"
+             question = f"continue creating {min(original_number, number_of_quiz_per_iteration)} more quizzes"
              # st.write(f"Question: {question}")
              try:
                 ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
