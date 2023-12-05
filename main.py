@@ -39,7 +39,7 @@ def initRAG(vector_store):
   model_id = job.fine_tuned_model
   llm = ChatOpenAI(model=model_id, temperature=1, max_tokens=512, openai_api_key=openai_api_key)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':3}, filters={'metadata': {'source': 'emarketing_textbook_download'}})
-  condense_q_system_prompt = """ You are a quiz creator. Do not create quiz more than the user asks. Do not duplicate quizzes that already have been created.
+  condense_q_system_prompt = """ You are a quiz creator. Do not create quiz more than the user asks. Do not duplicate quizzes that already have been created in previous answers.
   """
   condense_q_prompt = ChatPromptTemplate.from_messages(
     [
@@ -49,7 +49,7 @@ def initRAG(vector_store):
     ]
   )
   condense_q_chain = condense_q_prompt | llm | StrOutputParser()
-  qa_system_prompt = """You are a quiz creator. Do not create quiz more than the user asks. Do not duplicate created quiz. Do not duplicate quizzes that already have been created.
+  qa_system_prompt = """You are a quiz creator. Do not create quiz more than the user asks. Do not duplicate created quiz. Do not duplicate quizzes that already have been created in previous answers.
   {context}
   """
   qa_prompt = ChatPromptTemplate.from_messages(
