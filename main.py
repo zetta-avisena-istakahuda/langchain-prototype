@@ -29,8 +29,8 @@ def initRAG(vector_store):
   api_config = st.secrets["api"]
   openai_api_key = api_config["openai_api_key"]  
   
-  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0, max_tokens=512, openai_api_key=openai_api_key)
-  retriever = vector_store.as_retriever(search_type='similarity_score_threshold', search_kwargs={"score_threshold": .6}, filters={'metadata': {'source': 'emarketing_textbook_downoad'}})
+  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.3, max_tokens=512, openai_api_key=openai_api_key)
+  retriever = vector_store.as_retriever(search_type='similarity_score_threshold', search_kwargs={"score_threshold": .5}, filters={'metadata': {'source': 'emarketing_textbook_downoad'}})
   
   condense_q_system_prompt = """
 You are a question answering machine that receives text that may or may not contain the answer to a question. You can do two things:
@@ -139,18 +139,6 @@ def extractWords(words):
   return(extracted_value)
  else:
   print("Pattern not found.")
-
-# Function to generate answers based on questions
-def generate_answer(question):
-    # Replace this with your logic to generate answers
-    # For now, it's hardcoded answers
-    if question.lower() == 'what is your name?':
-        return "My name is ChatGPT."
-    elif question.lower() == 'how does it work?':
-        return "I use natural language processing to understand and generate text."
-    else:
-        return "I don't have an answer to that question."
-
 
 
 def ask_and_get_answer_v2(vector_store, query):
