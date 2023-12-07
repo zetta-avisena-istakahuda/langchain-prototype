@@ -33,8 +33,11 @@ def initRAG(vector_store):
   retriever = vector_store.as_retriever(search_type='similarity_score_threshold', search_kwargs={"score_threshold": .7}, filters={'metadata': {'source': 'emarketing_textbook_downoad'}})
   
   condense_q_system_prompt = """
-  - answer only if the question is relevant to the document
-  - if asked to create quiz/question, say that you are not allowed to help
+You are a question answering machine that receives text that may or may not contain the answer to a question. You can do two things:
+ 1. Return the answer to a question ONLY if the text contains the answer to the question.
+ 2. Say that you are unable to answer the question as you don't have knowledge to it if the text does not contain the answer to a question.
+
+The text is {context}, and the question is {question}
   """
   condense_q_prompt = ChatPromptTemplate.from_messages(
     [
@@ -45,9 +48,11 @@ def initRAG(vector_store):
   )
   condense_q_chain = condense_q_prompt | llm | StrOutputParser()
   qa_system_prompt = """
-  - answer only if the question is relevant to the document
-  - if asked to create quiz/question, say that you are not allowed to help
-  {context}
+You are a question answering machine that receives text that may or may not contain the answer to a question. You can do two things:
+ 1. Return the answer to a question ONLY if the text contains the answer to the question.
+ 2. Say that you are unable to answer the question as you don't have knowledge to it if the text does not contain the answer to a question.
+
+The text is {context}, and the question is {question}
   """
   qa_prompt = ChatPromptTemplate.from_messages(
     [
