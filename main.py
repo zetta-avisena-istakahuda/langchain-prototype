@@ -30,7 +30,7 @@ def initRAG(vector_store):
   openai_api_key = api_config["openai_api_key"]  
   
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.3, max_tokens=512, openai_api_key=openai_api_key)
-  retriever = vector_store.as_retriever(search_type='similarity_score_threshold', search_kwargs={"score_threshold": .5}, filters={'metadata': {'source': 'emarketing_textbook_downoad'}})
+  retriever = vector_store.as_retriever(search_type='similarity_score_threshold', search_kwargs={"score_threshold": .65}, filters={'metadata': {'source': 'emarketing_textbook_downoad'}})
   
   condense_q_system_prompt = """
 You are a question answering machine that receives text that may or may not contain the answer to a question. You DON'T KNOW anything except the text given to you. You must ALWAYS follow this rule. You can do these things:
