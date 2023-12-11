@@ -29,7 +29,7 @@ def initRAG(vector_store):
   api_config = st.secrets["api"]
   openai_api_key = api_config["openai_api_key"]  
   
-  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0.3, max_tokens=512, openai_api_key=openai_api_key)
+  llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0, max_tokens=512, openai_api_key=openai_api_key)
   retriever = vector_store.as_retriever(search_type='similarity_score_threshold', search_kwargs={"score_threshold": .65}, filters={'metadata': {'source': 'emarketing_textbook_downoad'}})
   
   condense_q_system_prompt = """
