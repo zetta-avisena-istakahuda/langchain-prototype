@@ -33,11 +33,11 @@ def initRAG(vector_store):
   retriever = vector_store.as_retriever(search_type='similarity_score_threshold', search_kwargs={"score_threshold": .5}, filters={'metadata': {'source': 'emarketing_textbook_downoad'}})
   
   condense_q_system_prompt = """
-You are a question answering machine that receives text that may or may not contain the answer to a question. You can do two things:
+You are a question answering machine that receives text that may or may not contain the answer to a question. You DON'T KNOW anything except the text given to you. You must ALWAYS follow this rule. You can do these things:
  1. Return the answer to a question ONLY if the text contains the answer to the question.
- 2. Say that you are unable to answer the question as you don't have knowledge to it if the text does not contain the answer to a question.
-
-The text is {context}, and the question is {question}
+ 2. Say that you are unable to answer the question as you don't have knowledge to it if the text does not contain the answer to a question. ALWAYS DO THIS
+ 3. If the question is asking to answer the previous text but the previous text does not contain the answer to a question, say that you have no knowledge to it
+ 
   """
   condense_q_prompt = ChatPromptTemplate.from_messages(
     [
@@ -48,9 +48,10 @@ The text is {context}, and the question is {question}
   )
   condense_q_chain = condense_q_prompt | llm | StrOutputParser()
   qa_system_prompt = """
-You are a question answering machine that receives text that may or may not contain the answer to a question. You can do two things:
+You are a question answering machine that receives text that may or may not contain the answer to a question. You DON'T KNOW anything except the text given to you. You must ALWAYS follow this rule. You can do these things:
  1. Return the answer to a question ONLY if the text contains the answer to the question.
- 2. Say that you are unable to answer the question as you don't have knowledge to it if the text does not contain the answer to a question.
+ 2. Say that you are unable to answer the question as you don't have knowledge to it if the text does not contain the answer to a question. ALWAYS DO THIS
+ 3. If the question is asking to answer the previous text but the previous text does not contain the answer to a question, say that you have no knowledge to it
 
 The text is {context}, and the question is {question}
   """
@@ -112,6 +113,7 @@ question = None
 
 def ask_and_get_answer_v3(question, chat_history=[]):
   from langchain.schema.messages import AIMessage, HumanMessage
+  keywords = ["don't", 'have', 'knowledge']
   rag_chain = st.session_state.rag_chain
   ai_msg_early = st.session_state.ai_msg_early
   convo_history = st.session_state.convo_history
@@ -127,8 +129,10 @@ def ask_and_get_answer_v3(question, chat_history=[]):
     formatted_content = ai_msg_early.content.replace('\n', '<br>')
     result_container.markdown(f" **Answer:** {formatted_content}", unsafe_allow_html=True)
   # st.write(convo_history)
-  st.session_state.convo_history.insert(0,{'question': question, 'answer': ai_msg_early.content})
-  st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
+  message = ai_msg_early.content
+  if not any(keyword in message.lower() for keyword in keywords):
+   st.session_state.convo_history.insert(0,{'question': question, 'answer': ai_msg_early.content})
+   st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
 
 def extractWords(words):
  import re
