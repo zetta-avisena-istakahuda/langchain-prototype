@@ -33,10 +33,10 @@ def initRAG(vector_store):
   retriever = vector_store.as_retriever(search_type='similarity_score_threshold', search_kwargs={"score_threshold": .65}, filters={'metadata': {'source': 'emarketing_textbook_downoad'}})
   
   condense_q_system_prompt = """
-You are a question answering machine that receives text that may or may not contain the answer to a question. You DON'T KNOW anything except the text given to you. You must ALWAYS follow this rule. You can do these things:
- 1. Return the answer to a question ONLY if the text contains the answer to the question.
- 2. Say that you are unable to answer the question as you don't have knowledge to it if the text does not contain the answer to a question. ALWAYS DO THIS
- 3. If the question is asking to answer the previous text but the previous text does not contain the answer to a question, say that you have no knowledge to it
+  You are an expert of the given document. 
+  ONLY use the following pieces of retrieved context to answer the question. 
+  If the answer is long, try to make it to be bullet points.
+  NEVER answer provided context that does not contain any information about the question.
  
   """
   condense_q_prompt = ChatPromptTemplate.from_messages(
@@ -48,12 +48,16 @@ You are a question answering machine that receives text that may or may not cont
   )
   condense_q_chain = condense_q_prompt | llm | StrOutputParser()
   qa_system_prompt = """
-You are a question answering machine that receives text that may or may not contain the answer to a question. You DON'T KNOW anything except the text given to you. You must ALWAYS follow this rule. You can do these things:
- 1. Return the answer to a question ONLY if the text contains the answer to the question.
- 2. Say that you are unable to answer the question as you don't have knowledge to it if the text does not contain the answer to a question. ALWAYS DO THIS
- 3. If the question is asking to answer the previous text but the previous text does not contain the answer to a question, say that you have no knowledge to it
+  You are an expert of the given document. 
+  ONLY use the following pieces of retrieved context to answer the question. 
+  If the answer is long, try to make it to be bullet points.
+  NEVER answer provided context that does not contain any information about the question.
 
-The text is {context}, and the question is {question}
+  Question: {question}
+
+  Context: {context}
+
+  Answer:
   """
   qa_prompt = ChatPromptTemplate.from_messages(
     [
@@ -113,26 +117,27 @@ question = None
 
 def ask_and_get_answer_v3(question, chat_history=[]):
   from langchain.schema.messages import AIMessage, HumanMessage
-  keywords = ["don't", 'have', 'knowledge']
+  chat_history_2 = chat_history
+  keywords = ["don't", 'have', 'knowledge', 'contain']
   rag_chain = st.session_state.rag_chain
   ai_msg_early = st.session_state.ai_msg_early
   convo_history = st.session_state.convo_history
   ai_msg_early.content = ''
-  ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
+  ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
   result_container = st.empty()
   # for convo in convo_history:
   #  st.write(f"**Question:** {convo.question}")
   #  st.write(f"**Answer:** {convo.answer}")
-  for chunk in ai_msg:
-    print(chunk.content, end="", flush=True)
-    ai_msg_early.content += chunk.content
-    formatted_content = ai_msg_early.content.replace('\n', '<br>')
-    result_container.markdown(f" **Answer:** {formatted_content}", unsafe_allow_html=True)
+  # for chunk in ai_msg:
+  #   print(chunk.content, end="", flush=True)
+  #   ai_msg_early.content += chunk.content
+  # formatted_content = ai_msg_early.content.replace('\n', '<br>')
+  result_container.markdown(f" **Answer:** {ai_msg.content}", unsafe_allow_html=True)
   # st.write(convo_history)
   message = ai_msg_early.content
   if not any(keyword in message.lower() for keyword in keywords):
-   st.session_state.convo_history.insert(0,{'question': question, 'answer': ai_msg_early.content})
-   st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
+   st.session_state.convo_history.insert(0,{'question': question, 'answer': ai_msg.content})
+   st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg])
 
 def extractWords(words):
  import re
