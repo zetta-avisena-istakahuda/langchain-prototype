@@ -80,6 +80,7 @@ def initRAG(vector_store):
     | llm
   )
   st.session_state.rag_chain = rag_chain
+  st.session_state.retriever = retriever
   st.session_state.ai_msg_early = rag_chain.invoke({"question": 'hello', "chat_history": []})
   st.session_state.code_executed = True
   st.session_state.chat_history = []
@@ -121,6 +122,7 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   keywords = ["don't", 'have', 'knowledge', 'contain']
   rag_chain = st.session_state.rag_chain
   ai_msg_early = st.session_state.ai_msg_early
+  retriever = st.session_state.retriever
   convo_history = st.session_state.convo_history
   ai_msg_early.content = ''
   ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
@@ -132,7 +134,16 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   #   print(chunk.content, end="", flush=True)
   #   ai_msg_early.content += chunk.content
   # formatted_content = ai_msg_early.content.replace('\n', '<br>')
+ retrieved_docs = retriever.get_relevant_documents(question)
+ st.write(f"\nYou can see more detail explanation in the document at:")
+ for x in range(len(retrieved_docs)):
+  source=''
+  if 'Header1' in retrieved_docs[x].metadata:
+   source = f"- {retrieved_docs[x].metadata['Header1']}"
+  if 'Header2' in retrieved_docs[x].metadata:
+   source = f"{source} > {retrieved_docs[x].metadata['Header2']}"
   result_container.markdown(f" **Answer:** {ai_msg.content}", unsafe_allow_html=True)
+  st.write(source)
   # st.write(convo_history)
   message = ai_msg_early.content
   if not any(keyword in message.lower() for keyword in keywords):
