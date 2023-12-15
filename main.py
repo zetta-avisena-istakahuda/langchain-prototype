@@ -134,21 +134,21 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   #   print(chunk.content, end="", flush=True)
   #   ai_msg_early.content += chunk.content
   # formatted_content = ai_msg_early.content.replace('\n', '<br>')
- retrieved_docs = retriever.get_relevant_documents(question)
- st.write(f"\nYou can see more detail explanation in the document at:")
- for x in range(len(retrieved_docs)):
-  source=''
-  if 'Header1' in retrieved_docs[x].metadata:
-   source = f"- {retrieved_docs[x].metadata['Header1']}"
-  if 'Header2' in retrieved_docs[x].metadata:
-   source = f"{source} > {retrieved_docs[x].metadata['Header2']}"
-  result_container.markdown(f" **Answer:** {ai_msg.content}", unsafe_allow_html=True)
-  st.write(source)
-  # st.write(convo_history)
-  message = ai_msg_early.content
-  if not any(keyword in message.lower() for keyword in keywords):
-   st.session_state.convo_history.insert(0,{'question': question, 'answer': ai_msg.content})
-   st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg])
+  retrieved_docs = retriever.get_relevant_documents(question)
+  st.write(f"\nYou can see more detail explanation in the document at:")
+  for x in range(len(retrieved_docs)):
+   source=''
+   if 'Header1' in retrieved_docs[x].metadata:
+    source = f"- {retrieved_docs[x].metadata['Header1']}"
+   if 'Header2' in retrieved_docs[x].metadata:
+    source = f"{source} > {retrieved_docs[x].metadata['Header2']}"
+   result_container.markdown(f" **Answer:** {ai_msg.content}", unsafe_allow_html=True)
+   st.write(source)
+   # st.write(convo_history)
+   message = ai_msg_early.content
+   if not any(keyword in message.lower() for keyword in keywords):
+    st.session_state.convo_history.insert(0,{'question': question, 'answer': ai_msg.content})
+    st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg])
 
 def extractWords(words):
  import re
