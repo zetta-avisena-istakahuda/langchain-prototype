@@ -126,7 +126,7 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   convo_history = st.session_state.convo_history
   ai_msg_early.content = ''
   ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
-   retrieved_docs = retriever.get_relevant_documents(question)
+  retrieved_docs = retriever.get_relevant_documents(question)
   st.write(f"\nYou can see more detail explanation in the document at:")
   for x in range(len(retrieved_docs)):
    source=''
