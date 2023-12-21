@@ -142,6 +142,12 @@ def ask_and_get_answer_v3(question, chat_history=[]):
     source = f"- {retrieved_docs[x].metadata['Header1']}"
    if 'Header2' in retrieved_docs[x].metadata:
     source = f"{source} > {retrieved_docs[x].metadata['Header2']}"
+   if 'Header2' in retrieved_docs[x].metadata:
+    source = f"{source} > {retrieved_docs[x].metadata['Header3']}"
+   if 'Header2' in retrieved_docs[x].metadata:
+    source = f"{source} > {retrieved_docs[x].metadata['Header4']}"
+   if 'Header2' in retrieved_docs[x].metadata:
+    source = f"{source} > {retrieved_docs[x].metadata['Header5']}"
    result_container.markdown(f" **Answer:** {ai_msg.content}", unsafe_allow_html=True)
    st.write(source)
    # st.write(convo_history)
