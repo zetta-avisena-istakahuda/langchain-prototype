@@ -126,15 +126,7 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   convo_history = st.session_state.convo_history
   ai_msg_early.content = ''
   ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
-  result_container = st.empty()
-  # for convo in convo_history:
-  #  st.write(f"**Question:** {convo.question}")
-  #  st.write(f"**Answer:** {convo.answer}")
-  # for chunk in ai_msg:
-  #   print(chunk.content, end="", flush=True)
-  #   ai_msg_early.content += chunk.content
-  # formatted_content = ai_msg_early.content.replace('\n', '<br>')
-  retrieved_docs = retriever.get_relevant_documents(question)
+   retrieved_docs = retriever.get_relevant_documents(question)
   st.write(f"\nYou can see more detail explanation in the document at:")
   for x in range(len(retrieved_docs)):
    source=''
@@ -150,6 +142,14 @@ def ask_and_get_answer_v3(question, chat_history=[]):
     source = f"{source} > {retrieved_docs[x].metadata['Header5']}"
    result_container.markdown(f" **Answer:** {ai_msg.content}", unsafe_allow_html=True)
    st.write(source)
+  result_container = st.empty()
+  # for convo in convo_history:
+  #  st.write(f"**Question:** {convo.question}")
+  #  st.write(f"**Answer:** {convo.answer}")
+  # for chunk in ai_msg:
+  #   print(chunk.content, end="", flush=True)
+  #   ai_msg_early.content += chunk.content
+  # formatted_content = ai_msg_early.content.replace('\n', '<br>')
    # st.write(convo_history)
    message = ai_msg_early.content
    if not any(keyword in message.lower() for keyword in keywords):
