@@ -258,13 +258,13 @@ def main():
             if not question:
                 st.warning("Please enter a question.")
             else:
-             while True:
-              try:
+             # while True:
+              # try:
                st.write(f"**Question:** {question}")     
                ask_and_get_answer_v3(question, st.session_state.chat_history)
-               break  
-              except Exception as e:
-               print(f"An error occurred: {str(e)}")
+               # break  
+              # except Exception as e:
+               # print(f"An error occurred: {str(e)}")
 
 if __name__ == "__main__":
  main()
