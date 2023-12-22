@@ -121,6 +121,7 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   chat_history_2 = chat_history
   keywords = ["don't", 'have', 'knowledge', 'contain']
   rag_chain = st.session_state.rag_chain
+  result_container = st.empty()
   ai_msg_early = st.session_state.ai_msg_early
   retriever = st.session_state.retriever
   convo_history = st.session_state.convo_history
