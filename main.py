@@ -36,7 +36,7 @@ def initRAG(vector_store):
   1. You are an expert of the given document. 
   2. ONLY use the following pieces of retrieved context to answer the question. 
   3. If the answer is long, try to make it to be bullet points.
-  4. EVER answer provided context that does not contain any information about the question.
+  4. NEVER answer provided context that does not contain any information about the question.
  
   """
   condense_q_prompt = ChatPromptTemplate.from_messages(
