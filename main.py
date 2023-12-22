@@ -38,7 +38,7 @@ def initRAG(vector_store):
   job = openai.fine_tuning.jobs.retrieve(fine_tuned_model_id)
   model_id = job.fine_tuned_model
   llm = ChatOpenAI(model=model_id, temperature=1, max_tokens=512, openai_api_key=openai_api_key)
-  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':15}, filters={'metadata': {'source': 'emarketing_textbook_download'}})
+  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':15}, filters={'metadata': {'source': 'RNTG_003'}})
   condense_q_system_prompt = """ You are a quiz creator. Do not create quiz more than the user asks. Do not duplicate quizzes that already have been created in previous answers.
   """
   condense_q_prompt = ChatPromptTemplate.from_messages(
