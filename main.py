@@ -140,7 +140,7 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   #   source = f"{source} > {retrieved_docs[x].metadata['Header4']}"
   #  if 'Header5' in retrieved_docs[x].metadata:
   #   source = f"{source} > {retrieved_docs[x].metadata['Header5']}"
-  #  result_container.markdown(f" **Answer:** {ai_msg.content}", unsafe_allow_html=True)
+  result_container.markdown(f" **Answer:** {ai_msg.content}", unsafe_allow_html=True)
   #  st.write(source)
   result_container = st.empty()
   # for convo in convo_history:
