@@ -127,21 +127,21 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   ai_msg_early.content = ''
   ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
   retrieved_docs = retriever.get_relevant_documents(question)
-  st.write(f"\nYou can see more detail explanation in the document at:")
-  for x in range(len(retrieved_docs)):
-   source=''
-   if 'Header1' in retrieved_docs[x].metadata:
-    source = f"- {retrieved_docs[x].metadata['Header1']}"
-   if 'Header2' in retrieved_docs[x].metadata:
-    source = f"{source} > {retrieved_docs[x].metadata['Header2']}"
-   if 'Header3' in retrieved_docs[x].metadata:
-    source = f"{source} > {retrieved_docs[x].metadata['Header3']}"
-   if 'Header4' in retrieved_docs[x].metadata:
-    source = f"{source} > {retrieved_docs[x].metadata['Header4']}"
-   if 'Header5' in retrieved_docs[x].metadata:
-    source = f"{source} > {retrieved_docs[x].metadata['Header5']}"
-   result_container.markdown(f" **Answer:** {ai_msg.content}", unsafe_allow_html=True)
-   st.write(source)
+  # st.write(f"\nYou can see more detail explanation in the document at:")
+  # for x in range(len(retrieved_docs)):
+  #  source=''
+  #  if 'Header1' in retrieved_docs[x].metadata:
+  #   source = f"- {retrieved_docs[x].metadata['Header1']}"
+  #  if 'Header2' in retrieved_docs[x].metadata:
+  #   source = f"{source} > {retrieved_docs[x].metadata['Header2']}"
+  #  if 'Header3' in retrieved_docs[x].metadata:
+  #   source = f"{source} > {retrieved_docs[x].metadata['Header3']}"
+  #  if 'Header4' in retrieved_docs[x].metadata:
+  #   source = f"{source} > {retrieved_docs[x].metadata['Header4']}"
+  #  if 'Header5' in retrieved_docs[x].metadata:
+  #   source = f"{source} > {retrieved_docs[x].metadata['Header5']}"
+  #  result_container.markdown(f" **Answer:** {ai_msg.content}", unsafe_allow_html=True)
+  #  st.write(source)
   result_container = st.empty()
   # for convo in convo_history:
   #  st.write(f"**Question:** {convo.question}")
