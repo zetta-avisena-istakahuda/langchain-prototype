@@ -30,7 +30,7 @@ def initRAG(vector_store):
   openai_api_key = api_config["openai_api_key"]  
   
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0, max_tokens=512, openai_api_key=openai_api_key)
-  retriever = vector_store.as_retriever(search_type='similarity_score_threshold', search_kwargs={"score_threshold": 0.65}, filters={'metadata': {'source': 'emarketing_textbook_download_chunk_recursive'}})
+  retriever = vector_store.as_retriever(search_type='similarity_score_threshold', search_kwargs={"score_threshold": 0.85}, filters={'metadata': {'source': 'emarketing_textbook_download_chunk_recursive'}})
   
   condense_q_system_prompt = """
   1. You are an expert of the given document. 
