@@ -30,7 +30,7 @@ def initRAG(vector_store):
   openai_api_key = api_config["openai_api_key"]  
   
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0, max_tokens=512, openai_api_key=openai_api_key)
-  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={"k": 4}, filters={'metadata': {'source': 'emarketing_textbook_download_chunk_recursive'}})
+  retriever = vector_store.as_retriever(search_type='similarity_score_threshold', search_kwargs={"score_threshold": 0.65}, filters={'metadata': {'source': 'emarketing_textbook_download_chunk_recursive'}})
   
   condense_q_system_prompt = """
   1. You are an expert of the given document. 
@@ -129,8 +129,8 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   ai_msg = rag_chain.invoke({"question": question, "chat_history": chat_history})
   retrieved_docs = retriever.get_relevant_documents(question)
   st.write(f"\nYou can see more detail explanation in the document at:")
+  source=''
   for x in range(len(retrieved_docs)):
-   source=''
    if 'Header1' in retrieved_docs[x].metadata:
     source = f"- {retrieved_docs[x].metadata['Header1']}"
    if 'Header2' in retrieved_docs[x].metadata:
