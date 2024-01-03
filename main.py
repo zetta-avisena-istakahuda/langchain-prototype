@@ -2,6 +2,7 @@ import streamlit as st
 import pinecone
 import os
 import time
+import spacy
 
 
 def initRAG(vector_store):
@@ -115,6 +116,23 @@ chat_history = []
 isVector = False
 vector_store = None
 question = None
+
+def check_similarity(answer, chunks):
+
+ answer_tokens = nlp(answer)
+ chunks_tokens = nlp(chunks)
+ similarity_score = calculate_similarity(answer_tokens.text, chunks_tokens.text)
+
+ # Set a threshold for similarity
+ threshold = 0.3
+
+ # Check if the similarity score is above the threshold
+ if similarity_score > threshold:
+    print("The question matches content in the document.")
+ else:
+    print("The question does not seem to match content in the document.")
+
+ return(similarity_score)
 
 def ask_and_get_answer_v3(question, chat_history=[]):
   from langchain.schema.messages import AIMessage, HumanMessage
