@@ -2,7 +2,8 @@ import streamlit as st
 import pinecone
 import os
 import time
-
+import spacy
+spacy.cli.download('en_core_web_lg')
 
 def initRAG(vector_store):
  if 'code_executed' not in st.session_state:
