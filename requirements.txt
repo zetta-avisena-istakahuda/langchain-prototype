@@ -6,5 +6,5 @@ python-dotenv
 tiktoken
 tomli
 astrapy
-spacy>=3.0,<4.0
-spacy[en]>=3.0,<4.0
+
+
