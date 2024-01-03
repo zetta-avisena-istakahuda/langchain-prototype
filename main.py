@@ -118,8 +118,7 @@ question = None
 
 def check_similarity(answer, chunks):
  import spacy
- import en_core_web_sm
- nlp = en_core_web_sm.load()
+ nlp = spacy.load("en")
  answer_tokens = nlp(answer)
  chunks_tokens = nlp(chunks)
  similarity_score = calculate_similarity(answer_tokens.text, chunks_tokens.text)
