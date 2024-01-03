@@ -7,4 +7,4 @@ tiktoken
 tomli
 astrapy
 spacy
-python3 spacy download en_core_web_sm
+spacy download en_core_web_sm
