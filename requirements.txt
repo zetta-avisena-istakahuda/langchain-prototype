@@ -6,5 +6,5 @@ python-dotenv
 tiktoken
 tomli
 astrapy
-
+spacy
 
