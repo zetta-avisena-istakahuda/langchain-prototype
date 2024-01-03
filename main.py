@@ -2,7 +2,6 @@ import streamlit as st
 import pinecone
 import os
 import time
-import spacy
 
 
 def initRAG(vector_store):
@@ -118,6 +117,7 @@ vector_store = None
 question = None
 
 def check_similarity(answer, chunks):
+ import spacy
  nlp = spacy.load("en_core_web_sm")
  answer_tokens = nlp(answer)
  chunks_tokens = nlp(chunks)
