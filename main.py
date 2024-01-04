@@ -159,7 +159,7 @@ def insert_or_fetch_embeddings(index_name):
    vector_store = Pinecone.from_existing_index(index_name, embeddings)
    isVector = True
    print('OK')
-   vstore = AstraDB(
+  vstore = AstraDB(
         embedding=embeddings,
         collection_name="astra_vector_demo",
         api_endpoint="https://288a909a-e845-4ebc-a371-c4fa12e5f11e-us-east1.apps.astra.datastax.com",
