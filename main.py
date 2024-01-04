@@ -121,7 +121,7 @@ def detect_and_create_quizzes(text, chat_history=[]):
                ai_msg_early.content += chunk.content
                formatted_content = ai_msg_early.content.replace('\n', '<br>')
                result_container.markdown(f"{formatted_content}", unsafe_allow_html=True)
-             isFirst = False
+               isFirst = False
             else:
              question = f"continue creating {min(original_number, number_of_quiz_per_iteration)} more quizzes"
              # st.write(f"Question: {question}")
