@@ -176,7 +176,7 @@ def ask_and_get_answer_v3(question, chat_history=[]):
   # formatted_content = ai_msg_early.content.replace('\n', '<br>')
   # st.write(convo_history)
   message = ai_msg_early.content
-  st.write(check_similarity(message, chunks_content))
+  # st.write(check_similarity(message, chunks_content))
   if not any(keyword in message.lower() for keyword in keywords):
    st.session_state.convo_history.insert(0,{'question': question, 'answer': ai_msg.content})
    st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg])
