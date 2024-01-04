@@ -7,6 +7,6 @@ tiktoken
 tomli
 astrapy
 spacy
-
+scikit-learn
 
 
