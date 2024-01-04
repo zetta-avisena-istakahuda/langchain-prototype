@@ -33,10 +33,10 @@ def initRAG(vector_store):
   api_config = st.secrets["api"]
   openai_api_key = api_config["openai_api_key"]
   os.environ['OPENAI_API_KEY'] = openai_api_key
-  fine_tuned_model_id = api_config["fine_tuned_model_id"]
+  # fine_tuned_model_id = api_config["fine_tuned_model_id"]
   
-  job = openai.fine_tuning.jobs.retrieve(fine_tuned_model_id)
-  model_id = job.fine_tuned_model
+  # job = openai.fine_tuning.jobs.retrieve(fine_tuned_model_id)
+  # model_id = job.fine_tuned_model
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=1, max_tokens=512, openai_api_key=openai_api_key)
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':15}, filters={'metadata': {'source': 'RNTG_003'}})
   condense_q_system_prompt = """
