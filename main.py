@@ -38,7 +38,7 @@ def initRAG(vector_store):
   # job = openai.fine_tuning.jobs.retrieve(fine_tuned_model_id)
   # model_id = job.fine_tuned_model
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=1, max_tokens=512, openai_api_key=openai_api_key)
-  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={'k':15}, filters={'metadata': {'source': 'RNTG_003'}})
+  retriever = vstore.as_retriever(search_type='similarity', search_kwargs={"k":2, 'filter': {'source': 'RNTG_003'}})
   condense_q_system_prompt = """
   You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know, say you don't know. Always answer in language user asks. If the answer is long, try to make it to be bullet points.
    When creating multiple choices quiz, set the 4 choices in bullet points with only ONE right answer and put the right answer below it with explanation. Example:
