@@ -131,8 +131,8 @@ def detect_and_create_quizzes(text, chat_history=[]):
              for chunk in ai_msg:
                 print(chunk.content, end="", flush=True)
                 ai_msg_early.content += chunk.content
-                 formatted_content = ai_msg_early.content.replace('\n', '<br>')
-                 result_container.markdown(f"{formatted_content}", unsafe_allow_html=True)
+                formatted_content = ai_msg_early.content.replace('\n', '<br>')
+                result_container.markdown(f"{formatted_content}", unsafe_allow_html=True)
             ai_msg_early.content += '\n\n'  
             final_content += formatted_content + '\n\n'
             st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
