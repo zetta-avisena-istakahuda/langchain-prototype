@@ -125,16 +125,14 @@ def detect_and_create_quizzes(text, chat_history=[]):
             else:
              question = f"continue creating {min(original_number, number_of_quiz_per_iteration)} more quizzes"
              # st.write(f"Question: {question}")
-             try:
-                ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
-                # result_container = st.empty()
-                for chunk in ai_msg:
-                 print(chunk.content, end="", flush=True)
-                 ai_msg_early.content += chunk.content
+          
+             ai_msg = rag_chain.stream({"question": question, "chat_history": chat_history})
+             # result_container = st.empty()
+             for chunk in ai_msg:
+                print(chunk.content, end="", flush=True)
+                ai_msg_early.content += chunk.content
                  formatted_content = ai_msg_early.content.replace('\n', '<br>')
                  result_container.markdown(f"{formatted_content}", unsafe_allow_html=True)
-             except Exception as e:
-              print(f"An error occurred: {e}")
             ai_msg_early.content += '\n\n'  
             final_content += formatted_content + '\n\n'
             st.session_state.chat_history.extend([HumanMessage(content=question), ai_msg_early])
