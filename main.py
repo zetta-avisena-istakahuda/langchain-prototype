@@ -118,7 +118,8 @@ question = None
 
 def check_similarity(answer, chunks):
  import spacy
- import en_core_web_sm
+ from sklearn.feature_extraction.text import TfidfVectorizer
+
  nlp = spacy.load("en_core_web_sm")
  answer_tokens = nlp(answer)
  chunks_tokens = nlp(chunks)
