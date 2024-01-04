@@ -6,5 +6,5 @@ python-dotenv
 tiktoken
 tomli
 astrapy
-spacy>=3.0,<4.0
-spacy[en_core_web_md]>=3.0,<4.0
+spacy>=3.0.0,<4.0.0
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz#egg=en_core_web_sm
