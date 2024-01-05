@@ -33,11 +33,7 @@ def initRAG(vector_store):
   retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={"k":2, 'filter': {'source': 'emarketing_textbook_download_chunk_separator'}})
   
   condense_q_system_prompt = """
-  1. You are an expert of the given document. 
-  2. ONLY use the following pieces of retrieved context to answer the question. 
-  3. If the answer is long, try to make it to be bullet points.
-  4. NEVER answer provided context that does not contain any information about the question.
- 
+ You are an expert of the document. Generate answer only based on the given context. Do not make up the answer. 
   """
   condense_q_prompt = ChatPromptTemplate.from_messages(
     [
@@ -48,16 +44,8 @@ def initRAG(vector_store):
   )
   condense_q_chain = condense_q_prompt | llm | StrOutputParser()
   qa_system_prompt = """
-  1. You are an expert of the given document. 
-  2. ONLY use the following pieces of retrieved context to answer the question. 
-  3. If the answer is long, try to make it to be bullet points.
-  4. NEVER answer provided context that does not contain any information about the question.
-
-  Question: {question}
-
-  Context: {context}
-
-  Answer:
+ You are an expert of the document. Generate answer only based on the given context. Do not make up the answer.
+ The context is {context} and the question is {question}
   """
   qa_prompt = ChatPromptTemplate.from_messages(
     [
