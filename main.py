@@ -30,7 +30,7 @@ def initRAG(vector_store):
   openai_api_key = api_config["openai_api_key"]  
   
   llm = ChatOpenAI(model='gpt-3.5-turbo', temperature=0, max_tokens=512, openai_api_key=openai_api_key)
-  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={"k":2, 'filter': {'source': 'emarketing_textbook_download_chunk_separator'}})
+  retriever = vector_store.as_retriever(search_type='similarity', search_kwargs={"k":1, 'filter': {'source': 'emarketing_textbook_download_chunk_separator'}})
   
   condense_q_system_prompt = """
  You are an expert of the document. Generate answer only based on the given context. Do not make up the answer. 
