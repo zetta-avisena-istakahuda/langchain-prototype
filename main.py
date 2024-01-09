@@ -43,6 +43,7 @@ def initRAG(vector_store):
   You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know, say you don't know. Always answer in language user asks. If the answer is long, try to make it to be bullet points.
    When creating multiple choices quiz, set the 4 choices in bullet points with only ONE right answer and put the right answer below it with explanation. Example:
    What is the purpose of the document "General Standardization Development Guideline"?
+   Options:
    A) Translation
    B) Bug fixing
    C) Notification reference
@@ -62,6 +63,7 @@ def initRAG(vector_store):
   You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know, say you don't know. Always answer in language user asks. If the answer is long, try to make it to be bullet points.
    When creating multiple choices quiz, set the 4 choices in bullet points with only ONE right answer and put the right answer below it with explanation. Example:
    What is the purpose of the document "General Standardization Development Guideline"?
+   Options:
    A) Translation
    B) Bug fixing
    C) Notification reference
