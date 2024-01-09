@@ -49,7 +49,7 @@ def initRAG(vector_store):
    C) Notification reference
    D) Standardization development
    Answer: D) Standardization development
-   Explanation: .....
+   Explanation: The term "Cursor" in this context refers to the loading state when the system is waiting for a request to complete.
   """
   condense_q_prompt = ChatPromptTemplate.from_messages(
     [
@@ -69,7 +69,7 @@ def initRAG(vector_store):
    C) Notification reference
    D) Standardization development
    Answer: D) Standardization development
-   Explanation: .....
+   Explanation: The term "Cursor" in this context refers to the loading state when the system is waiting for a request to complete.
   {context}
   """
   qa_prompt = ChatPromptTemplate.from_messages(
