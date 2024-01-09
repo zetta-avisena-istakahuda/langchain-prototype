@@ -42,15 +42,15 @@ def initRAG(vector_store):
   condense_q_system_prompt = """
   You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know, say you don't know. Always answer in language user asks. If the answer is long, try to make it to be bullet points.
    When creating multiple choices quiz, set the 4 choices in bullet points with only ONE right answer and put the right answer below it with explanation. Example:
+   Quiz:
    What is the purpose of the document "General Standardization Development Guideline"?
    Options:
-   A) Translation
-   B) Bug fixing
-   C) Notification reference
-   D) Standardization development
-   Answer: D) Standardization development
-   Explanation: The term "Cursor" in this context refers to the loading state when the system is waiting for a request to complete.
-  """
+   A) ...
+   B) ...
+   C) ...
+   D) ...
+   Answer: D) ...
+   Explanation: ...
   condense_q_prompt = ChatPromptTemplate.from_messages(
     [
         ("system", condense_q_system_prompt),
@@ -62,14 +62,15 @@ def initRAG(vector_store):
   qa_system_prompt = """
   You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know, say you don't know. Always answer in language user asks. If the answer is long, try to make it to be bullet points.
    When creating multiple choices quiz, set the 4 choices in bullet points with only ONE right answer and put the right answer below it with explanation. Example:
+   Quiz:
    What is the purpose of the document "General Standardization Development Guideline"?
    Options:
-   A) Translation
-   B) Bug fixing
-   C) Notification reference
-   D) Standardization development
-   Answer: D) Standardization development
-   Explanation: The term "Cursor" in this context refers to the loading state when the system is waiting for a request to complete.
+   A) ...
+   B) ...
+   C) ...
+   D) ...
+   Answer: D) ...
+   Explanation: ...
   {context}
   """
   qa_prompt = ChatPromptTemplate.from_messages(
